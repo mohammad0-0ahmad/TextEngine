@@ -14,7 +14,7 @@ public class TextFile {
      */
     private boolean sorted;
     private String name;
-    private ArrayList<Word> words;
+    private StringBuffer content;
 
     ////////////////////////////////////////////////////
     /*>>Constructors <<*/
@@ -59,33 +59,50 @@ public class TextFile {
     /**
      *
      */
-    public void showWords() {
+    public void getContent() {
     }
 
     /**
      *
      */
-    private void isSorted() {
+    public void sort() {
     }
 
     /**
      *
      */
-    private void sort() {
-    }
-
-    /**
-     *
-     */
-    private int search(String wordToLookFor) {
+    public int search(String wordToLookFor) {
         return 0;
     }
 
     /**
+     *
+     * @param wordOrder
+     */
+    public void getWord(long wordOrder){}
+
+    /**
+     *
+     * @param firstWordOrder
+     * @param secondOrderWord
+     */
+    public void switchWordsOrder(long firstWordOrder,long secondOrderWord){}
+
+    /**
+     *
      * @return
      */
-    private ArrayList<Word> contentSplitter() {
-        return null;
-    }
+    public long countAmountWords(){return -1;}
+
+    /**
+     *
+     */
+    private void isSorted() {}
+
+    /**
+     *
+     */
+    private void removeSigns(){}
+
 
 }

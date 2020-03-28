@@ -1,7 +1,4 @@
 package TextEngine;
-
-import java.util.ArrayList;
-
 public interface Sort {
     /**
      *
@@ -13,8 +10,8 @@ public interface Sort {
 
     /**
      * Note change the name of the method depending on sort algorithm
-     * @param words
+     * @param text
      * @return
      */
-    default ArrayList<Word> sort(ArrayList<Word> words){return null;}
+    default StringBuffer sort(StringBuffer text){return null;}
 }
