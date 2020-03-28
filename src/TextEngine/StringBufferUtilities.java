@@ -1,6 +1,10 @@
 package TextEngine;
 
 public interface StringBufferUtilities {
+    // The following variables represent its names with another word (" ","\t","\n") and holds the ascii values that are related to them.
+    int whiteSpace = 32;
+    int breakLine = 10;
+    int  tab = 9;
     /**
      *
      * @param x
@@ -15,7 +19,7 @@ public interface StringBufferUtilities {
      * @param wordOrder
      * @return
      */
-    default public StringBuffer getWord(StringBuffer text,long wordOrder){return null;}
+    default StringBuffer getWord(StringBuffer text,long wordOrder){return null;}
 
     /**
      *
@@ -24,27 +28,45 @@ public interface StringBufferUtilities {
      * @param secondOrderWord
      * @return
      */
-    default public StringBuffer switchWordsOrder(StringBuffer text,long firstWordOrder,long secondOrderWord){return null;}
+    default StringBuffer switchWordsOrder(StringBuffer text,long firstWordOrder,long secondOrderWord){return null;}
+
+    /**
+     *Counts amount of words that exist in a text.
+     * @param text the text that hold the words that will be counted.
+     * @return words amount.
+     */
+    default int countWordsAmount(StringBuffer text){
+        int wordsAmount = 0;
+        int lettersAmount = text.length();
+        boolean canCounts = false;
+        //The following for loop will check letter by letter to count the words depending on letter.
+        for (int i=0;i<lettersAmount;i++){
+            if ((int)text.charAt(i) != whiteSpace && (int)text.charAt(i) != breakLine  && (int)text.charAt(i) != tab && !canCounts){
+                canCounts = true;
+            }else if (((int)text.charAt(i) == whiteSpace || (int)text.charAt(i) == breakLine  || (int)text.charAt(i) == tab) && canCounts ){
+                wordsAmount++;
+                canCounts = false;
+            }
+            // The following if statement counts last word if it was accepted letter.(accepted letters should be not a whitespace,linebreak or multiple whitespaces "tab")
+            if(i == lettersAmount-1 && canCounts){
+                wordsAmount++;
+            }
+        }
+        return wordsAmount;
+    }
 
     /**
      *
      * @param text
      * @return
      */
-    default public long countAmountWords(StringBuffer text){return -1;}
+    default  boolean isSorted(StringBuffer text) {return false;}
 
     /**
      *
      * @param text
      * @return
      */
-    default public  boolean isSorted(StringBuffer text) {return false;}
-
-    /**
-     *
-     * @param text
-     * @return
-     */
-    default public StringBuffer removeSigns(StringBuffer text){return null;}
+    default  StringBuffer removeSigns(StringBuffer text){return null;}
 
 }
