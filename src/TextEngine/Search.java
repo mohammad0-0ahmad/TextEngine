@@ -1,5 +1,5 @@
 package TextEngine;
-public interface Search {
+public interface Search extends StringBufferUtilities{
     /**
      * Note change the name of the method depending on search algorithm
      * @param word

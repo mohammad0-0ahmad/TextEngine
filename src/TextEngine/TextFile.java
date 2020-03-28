@@ -74,35 +74,4 @@ public class TextFile {
     public int search(String wordToLookFor) {
         return 0;
     }
-
-    /**
-     *
-     * @param wordOrder
-     */
-    public void getWord(long wordOrder){}
-
-    /**
-     *
-     * @param firstWordOrder
-     * @param secondOrderWord
-     */
-    public void switchWordsOrder(long firstWordOrder,long secondOrderWord){}
-
-    /**
-     *
-     * @return
-     */
-    public long countAmountWords(){return -1;}
-
-    /**
-     *
-     */
-    private void isSorted() {}
-
-    /**
-     *
-     */
-    private void removeSigns(){}
-
-
 }
