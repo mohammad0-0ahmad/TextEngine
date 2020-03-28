@@ -13,7 +13,7 @@ public class TextFile {
     private ArrayList<Word> words;
 
     ////////////////////////////////////////////////////
-    /*>> Constructor <<*/
+    /*>>Constructors <<*/
 
     /**
      *
@@ -23,7 +23,15 @@ public class TextFile {
     }
 
     ////////////////////////////////////////////////////
-    /*>>> Member method <<<*/
+    /*>>> Static methods <<<*/
+    /**
+     *
+     */
+    public static TextFile open(String filePath){
+        return new TextFile("",null);
+    }
+    ////////////////////////////////////////////////////
+    /*>>>> Member methods <<<<*/
 
     /**
      *
