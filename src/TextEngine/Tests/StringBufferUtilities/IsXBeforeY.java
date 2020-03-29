@@ -1,10 +1,10 @@
 package TextEngine.Tests.StringBufferUtilities;
 
-import TextEngine.StringBufferUtilities;
+import TextEngine.Utilities;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
-public class IsXBeforeY implements StringBufferUtilities {
+public class IsXBeforeY implements Utilities {
     /**
      * a test That checks some possible input values.
      */

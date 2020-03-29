@@ -1,7 +1,6 @@
 package TextEngine;
 
 import java.io.*;
-import java.nio.Buffer;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -13,14 +12,22 @@ public class TextFile {
      *
      */
     private boolean sorted;
+    /**
+     *
+     */
     private String name;
-    private StringBuffer content;
+    /**
+     *
+     */
+    private ArrayList <String> content;
 
     ////////////////////////////////////////////////////
     /*>>Constructors <<*/
 
     /**
      *
+     * @param name
+     * @param content
      */
     public TextFile(String name, StringBuffer content) {
 
@@ -46,6 +53,16 @@ public class TextFile {
         content.append(new String(Files.readAllBytes(Paths.get(filePath))));                             // read the file and store the content inside content variable.
         return new TextFile(file.getName(),content);
     }
+
+    /**
+     *
+     * @param content
+     * @param path
+     * @return
+     */
+    public static boolean save(String content,String path){
+        return false;
+    }
     ////////////////////////////////////////////////////
     /*>>>> Member methods <<<<*/
 
@@ -58,8 +75,10 @@ public class TextFile {
 
     /**
      *
+     * @return
      */
-    public void getContent() {
+    public String getContent() {
+        return null;
     }
 
     /**
