@@ -4,12 +4,25 @@ import java.util.ArrayList;
 
 public interface Sort extends Utilities {
     /**
-     * Note change the name of the method depending on sort algorithm
-     * @param text
-     * @return
+     * Sorts the words within the array in alphabetical order
+     * @param text the ArrayList of words that will be ordered
+     * @return the value of the ArrayList once it has been ordered
      */
-    default StringBuffer sort(StringBuffer text){return null;}
-    /**
+    default ArrayList<String> sorting(ArrayList<String> text){
+        String temp;
+        int n = text.size();
+        for (int j = 0; j < n - 1; j++){
+            for (int i = j + 1; i < n; i++) {
+                    if(!isXBeforeY(text.get(j), text.get(i))){
+                    temp = text.get(j);
+                    text.set(j, text.get(i));
+                    text.set(i, temp);
+                }
+            }
+        }
+        System.out.println(text);
+        return text;
+    }    /**
      * It checks if an array list is alphabetically sorted.
      * @param arrayList the data list that will be checked.
      * @return true with sorted parameter and false with unsorted one.
@@ -22,6 +35,6 @@ public interface Sort extends Utilities {
                 return false;
             }
         }
-        return result;
+        return true;
     }
 }
