@@ -1,9 +1,13 @@
-package TextEngine.Tests.StringBufferUtilities;
+package TextEngine.Tests.Utilities;
 
 import TextEngine.Utilities;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+/**
+ * {@link Utilities#isXBeforeY(String, String)} test class.
+ */
 public class IsXBeforeY implements Utilities {
     /**
      * a test That checks some possible input values.

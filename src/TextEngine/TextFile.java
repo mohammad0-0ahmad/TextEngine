@@ -5,7 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
-public class TextFile {
+public class TextFile implements Utilities,Sort{
     /*> Member variables <*/
 
     /**
@@ -25,12 +25,24 @@ public class TextFile {
     /*>>Constructors <<*/
 
     /**
-     *
-     * @param name
-     * @param content
+     * Constructor that uses to create a TextFile object by passing a text.
+     * It uses for example when opening a text file.
+     * @param name is the name of the text file
+     * @param content the text that will be divided in words and saved inside content member variable.
      */
     public TextFile(String name, StringBuffer content) {
-
+        this.name = name;
+        this.content = new ArrayList<String>();
+        // Dividing content into words which will be saved inside content member variable.
+        while (content.length()!=0){
+            String[] temp = getFirstWord(content);
+            content.replace(0, content.length(),temp[1]);
+            if(temp[0] !=""){
+                this.content.add(temp[0]);
+            }
+        }
+        // Checking if the text is already sorted.
+        this.sorted = isSorted(this.content);
     }
 
     ////////////////////////////////////////////////////
