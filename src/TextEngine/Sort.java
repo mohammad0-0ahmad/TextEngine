@@ -10,9 +10,18 @@ public interface Sort extends Utilities {
      */
     default StringBuffer sort(StringBuffer text){return null;}
     /**
-     *
-     * @param arrayList
-     * @return
+     * It checks if an array list is alphabetically sorted.
+     * @param arrayList the data list that will be checked.
+     * @return true with sorted parameter and false with unsorted one.
      */
-    default  boolean isSorted(ArrayList<String> arrayList) {return false;}
+    default  boolean isSorted(ArrayList<String> arrayList) {
+        // Assume that arrayList is already sorted until the method finds one word that should be before another.
+        boolean result = true;
+        for (int i=0;i<arrayList.size()-1;i++){
+            if (!isXBeforeY(arrayList.get(i),arrayList.get(i+1))){
+                return false;
+            }
+        }
+        return result;
+    }
 }
