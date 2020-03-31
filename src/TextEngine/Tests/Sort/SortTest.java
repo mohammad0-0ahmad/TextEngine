@@ -1,10 +1,8 @@
 package TextEngine.Tests.Sort;
-
 import TextEngine.Sort;
-import org.junit.Assert;
 import org.junit.jupiter.api.Test;
-
 import java.util.ArrayList;
+import static org.junit.jupiter.api.Assertions.*;
 
 class SortTest implements Sort{
     @Test
@@ -28,8 +26,8 @@ class SortTest implements Sort{
         int lowest = arrayList.indexOf(low);
 
 
-        Assert.assertEquals(1, partitioning(arrayList, lowest, highest));
-        Assert.assertEquals(arrayList, sort(arrayList, lowest, highest));
+        assertEquals(1, partitioning(arrayList, lowest, highest));
+        assertEquals(arrayList, sort(arrayList, lowest, highest));
 
     }
 }
