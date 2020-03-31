@@ -21,6 +21,15 @@ class SortTest implements Sort{
         arrayListSorted.add("For");
         arrayListSorted.add("Strings");
 
-        Assert.assertEquals(arrayListSorted, sorting(arrayList));
+        String high = arrayList.get(arrayList.size() - 1); //Getting the first string in the array
+        int highest = arrayList.indexOf(high);
+
+        String low = arrayList.get(0); //Getting the first string in the array
+        int lowest = arrayList.indexOf(low);
+
+
+        Assert.assertEquals(1, partitioning(arrayList, lowest, highest));
+        Assert.assertEquals(arrayList, sort(arrayList, lowest, highest));
+
     }
 }
