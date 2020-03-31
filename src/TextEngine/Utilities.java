@@ -1,10 +1,13 @@
 package TextEngine;
 
+import java.lang.reflect.Array;
+
 public interface Utilities {
     // The following variables represent its names with another word (" ","\t","\n") and holds the ascii values that are related to them.
     int WHITE_SPACE = 32;
     int BREAK_LINE = 10;
     int TAB = 9;
+
 
     /**
      * Compare words to know which word in the arguments will take first place when ordering alphabetically. Ascii order is related in some cases.
@@ -24,16 +27,44 @@ public interface Utilities {
         return false;
     }
 
-    /**
-     * @param word
-     * @return
+    // !!Following method may don't cover all punctuation!!
+    /** It removes some common punctuation that can be exist at the start or at the end of a word.
+     * @param word word that need to be clean.
+     * @return word without some common punctuation that can be exist on the edges.
      */
     default String removeSigns(String word) {
-        return null;
+        StringBuffer result = new StringBuffer(word);
+        // an array that hold ascii values for common punctuation. note 39 represent single quote mark.
+        int[] commonPunctuationToRemove = new int[]{(int) '.', (int) ',', (int) '!', (int) '?', (int) '"', (int) ':', (int) '-', (int) '_', (int) '(', (int) ')', (int) '[', (int) ']', (int) '{', (int) '}', (int) '/', (int) '*', (int) '&', (int) '+', 39};
+        // Cleaning the right side of the word.
+        for (int i = 0; i < commonPunctuationToRemove.length; i++) {
+            if (result.length() == 0) {
+                break;
+            }
+            if ((int) result.charAt(result.length() - 1) == commonPunctuationToRemove[i]) {
+                result.deleteCharAt(result.length() - 1);
+                i = -1;
+                continue;
+            }
+        }
+        // Cleaning the left side of the word.
+        for (int i = 0; i < commonPunctuationToRemove.length; i++) {
+            if (result.length() == 0) {
+                break;
+            }
+            if ((int) result.charAt(0) == commonPunctuationToRemove[i]) {
+                result.deleteCharAt(0);
+                i = -1;
+                continue;
+            }
+        }
+
+        return result.toString();
     }
 
     /**
      * It used to get the first word if a text.
+     *
      * @param text is a String buffer that have text.
      * @return a string array that have first word at first place and rest in the second place OR empty String if text parameter is equals to null or if it is empty.
      */
@@ -44,7 +75,7 @@ public interface Utilities {
             // Get index of first whitespace.
             firstWhiteSpaceIndex = text.indexOf(" ");
             // -1 means that there is not a whitespace at all.
-            if(firstWhiteSpaceIndex == -1){
+            if (firstWhiteSpaceIndex == -1) {
                 // In this case firstWhiteSpaceIndex the index of last letter of the text
                 firstWhiteSpaceIndex = text.length();
             }

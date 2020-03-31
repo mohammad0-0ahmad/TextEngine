@@ -51,10 +51,9 @@ public class TextFile implements Utilities,Sort{
     /**
      * Opens a text file.
      * @param filePath the path of the desired file.
-     * @return TextFile object.
-     * @throws IOException exception may occur during the process of the file opening.
+     * @return TextFile object or null if the process failed because of wrong input such as wrong file format or if the file is not exist.
      */
-    public static TextFile open(String filePath) throws IOException {
+    public static TextFile open(String filePath){
         File file = new File(filePath);
         if (!file.exists()) {                                                                            // checks if the file is exist.
             return null;
@@ -62,7 +61,11 @@ public class TextFile implements Utilities,Sort{
             return null;
         }
         StringBuffer content = new StringBuffer();
-        content.append(new String(Files.readAllBytes(Paths.get(filePath))));                             // read the file and store the content inside content variable.
+        try {
+            content.append(new String(Files.readAllBytes(Paths.get(filePath))));                             // read the file and store the content inside content variable.
+        }catch (Exception e){
+            return null;
+        }
         return new TextFile(file.getName(),content);
     }
 
