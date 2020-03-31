@@ -6,13 +6,13 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Test class that checks isSorted method see.
+ * Test class that checks isSorted method.
  * link to the method {@link Sort#isSorted(ArrayList)} .
  */
 public class IsSorted implements Sort {
     @Test
     /**
-     * Test checks if the method return correct values by passing sorted and un sorted arrayList.
+     * Test checks if the method return correct values by passing sorted and unsorted arrayList.
      */
     public void isReturnCorrectResult(){
         ArrayList<String> sorted = new ArrayList<String>();
