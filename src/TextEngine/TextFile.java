@@ -32,12 +32,12 @@ public class TextFile implements Utilities,Sort{
      */
     public TextFile(String name, StringBuffer content) {
         this.name = name;
-        this.content = new ArrayList<String>();
+        this.content = new ArrayList<>();
         // Dividing content into words which will be saved inside content member variable.
         while (content.length()!=0){
             String[] temp = getFirstWord(content);
             content.replace(0, content.length(),temp[1]);
-            if(temp[0] !=""){
+            if(!temp[0].equals("")){
                 this.content.add(temp[0]);
             }
         }
@@ -97,9 +97,10 @@ public class TextFile implements Utilities,Sort{
     }
 
     /**
-     *
+     * calls the sorting-method from the Sort-interface to order the text in alphabetical order
      */
     public void sort() {
+
     }
 
     /**
