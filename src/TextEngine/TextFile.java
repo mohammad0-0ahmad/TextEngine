@@ -5,7 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
-public class TextFile implements Utilities,Sort{
+public class TextFile implements Utilities,Sort,Search{
     /*> Member variables <*/
 
     /**
@@ -82,10 +82,19 @@ public class TextFile implements Utilities,Sort{
     /*>>>> Member methods <<<<*/
 
     /**
-     *
+     * Getter method that return the name of the file name.
+     * @return value of name member variable.
      */
     public String getName() {
-        return null;
+        return name;
+    }
+
+    /**
+     * Getter method that return the status of the text file whether or not it stores a sorted content.
+     * @return a boolean value that is TRUE if its content is sorted or FALSE if it is not sorted.
+     */
+    public boolean isSorted() {
+        return sorted;
     }
 
     /**
@@ -104,9 +113,13 @@ public class TextFile implements Utilities,Sort{
     }
 
     /**
-     *
+     * A method that will decide which searching algorithm will be used to looking for a specific word and returns a number as search result.
+     * @param wordToLookFor a word that method will looking for inside content array list.
+     * @return a number that refer to amount of words that is equals with the passed word.
      */
     public int search(String wordToLookFor) {
-        return 0;
+        if (this.sorted){
+            return binary(wordToLookFor, this.content);
+        }else return linear(wordToLookFor, this.content);
     }
 }
