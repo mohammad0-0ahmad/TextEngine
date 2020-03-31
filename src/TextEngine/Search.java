@@ -4,12 +4,44 @@ import java.util.ArrayList;
 
 public interface Search extends Utilities {
     /**
-     * Note change the name of the method depending on search algorithm
+     *
      * @param word
-     * @param text
+     * @param arrayUsedInSearch
      * @return
      */
-    default int search(String word, ArrayList<String> text){return 0;}
+    default int binary(String word, ArrayList<String> arrayUsedInSearch){
+
+        int first = 0;
+        int last = arrayUsedInSearch.size()-1;
+        int middle = (first + last)/2;
+
+        while (last >= first){
+            //Checks the word we are looking for in the arrayList
+            if (arrayUsedInSearch.get(middle).equals(word)){
+                //Checks from the middle to the last word in the arrayList
+                for (int i = middle; i <= last;i++){
+                    if(!arrayUsedInSearch.get(i).equals(word)){
+                        last = --i;
+                        break;
+                    }
+                }
+                //Checks from the middle to the first word in the arrayList
+                for (int i = middle; i >= first; i--){
+                    if (!arrayUsedInSearch.get(i).equals(word)){
+                        first = ++i;
+                        break;
+                    }
+                }
+                return (last - first) + 1;
+            }if (isXBeforeY(word,arrayUsedInSearch.get(middle))){
+                last = middle-1;
+            }else {
+                first = middle+1;
+            }
+            middle = (last + first)/2;
+        }
+        return 0;
+    }
 
     /**
      * It execute a linear searching on a arrayList.

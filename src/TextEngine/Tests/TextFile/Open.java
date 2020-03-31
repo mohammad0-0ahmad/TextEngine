@@ -1,8 +1,9 @@
 package TextEngine.Tests.TextFile;
 
+import org.junit.Test;
+
 import static TextEngine.TextFile.open;
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 /**
  * Test class that tests TextFile.open method.
@@ -14,7 +15,7 @@ class Open {
     @Test
     void openUnExistFiles(){
         try {
-            assertNull(open("C:\\Users\\95mohahm\\Desktop\\test.txt"));
+            assertNull(open("C:\\Users\\95jassod\\Desktop\\test.txt"));
         }catch (Exception e){}
 
     }
@@ -25,9 +26,9 @@ class Open {
     @Test
     void openOtherTypeFiles(){
         try {
-            assertNull(open("C:\\Users\\95mohahm\\Desktop\\test.png"));
-            assertNull(open("C:\\Users\\95mohahm\\Desktop\\test.pdf"));
-            assertNull(open("C:\\Users\\95mohahm\\Desktop\\test.text"));
+            assertNull(open("C:\\Users\\95jassod\\Desktop\\test.png"));
+            assertNull(open("C:\\Users\\95jassod\\Desktop\\test.pdf"));
+            assertNull(open("C:\\Users\\95jassod\\Desktop\\test.text"));
         }catch (Exception e){}
     }
 
