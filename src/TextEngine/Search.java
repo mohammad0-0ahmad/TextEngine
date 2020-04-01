@@ -10,6 +10,12 @@ public interface Search extends Utilities {
      * @return a number that refer to amount of words that is equals with the passed word.
      */
     default int binary(String word, ArrayList<String> arrayUsedInSearch){
+        //In case arrayUsedInSearch is null
+        if (arrayUsedInSearch == null){
+            return -2;
+        }else if (arrayUsedInSearch.size() == 0){ //In case arrayUsedInSearch is empty.
+            return -1;
+        }
         // Arranging the range that will be focused during searching.
         int first = 0;
         int last = arrayUsedInSearch.size()-1;

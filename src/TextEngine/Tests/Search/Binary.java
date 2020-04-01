@@ -34,5 +34,12 @@ public class Binary implements Search {
         assertEquals(3, binary("Hej5", test));
         assertEquals(1, binary("Hej", test));
 
+        //When passing an arrayList that is empty
+        test  = new ArrayList<String>();
+        assertEquals(-1, binary("Hej1", test));
+        //When passing array list that is null.
+        test = null;
+        assertEquals(-2,binary("Hej",test));
+
     }
 }
