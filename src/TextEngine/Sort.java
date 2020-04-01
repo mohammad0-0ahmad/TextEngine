@@ -37,12 +37,12 @@ public interface Sort extends Utilities {
      * @param high the highest index in the array
      * @return the sorted text
      */
-    default ArrayList<String> sort(ArrayList<String> text, int low, int high) {
+    default ArrayList<String> quickSort(ArrayList<String> text, int low, int high) {
         if (low < high){
             int pi = partitioning(text, low, high);
             System.out.println(pi);
-            sort(text, low, pi-1);
-            sort(text, pi+1, high);
+            quickSort(text, low, pi-1);
+            quickSort(text, pi+1, high);
         }
         return text;
     }

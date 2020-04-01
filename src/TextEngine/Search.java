@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public interface Search extends Utilities {
     /**
-     * It execute a binary searching on a sorted method.
+     * It executes a binary searching on a sorted method.
      * @param word a word that method looks for.
      * @param arrayUsedInSearch an string array list that could store the word.
      * @return a number that refer to amount of words that is equals with the passed word.

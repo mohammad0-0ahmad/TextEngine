@@ -1,12 +1,14 @@
 package TextEngine.Tests.Sort;
 import TextEngine.Sort;
+import TextEngine.TextEngine;
+import TextEngine.TextFile;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
 class SortTest implements Sort{
     @Test
-    void SortingBasedOnAlphabeticalOrder() {
+    void TestIfItSorts() {
         ArrayList<String> arrayList = new ArrayList<>();
         arrayList.add("Strings");
         arrayList.add("Are");
@@ -27,7 +29,8 @@ class SortTest implements Sort{
 
 
         assertEquals(1, partitioning(arrayList, lowest, highest));
-        assertEquals(arrayList, sort(arrayList, lowest, highest));
+        assertEquals(arrayList, quickSort(arrayList, lowest, highest));
 
     }
+
 }
