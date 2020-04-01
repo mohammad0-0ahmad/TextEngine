@@ -61,4 +61,31 @@ public interface Sort extends Utilities {
         }
         return true;
     }
+
+    /**
+     * It sort matrix "2d array" items depending on the value that exist at the second column [x][1]index.<br>
+     * It's based on insertion sorting.<br>
+     * "Designed specifically to sort search result."
+     * @param matrix Tow dimension int array that will be sorted.
+     * @return a sorted 2d array "matrix" or NULL in case matrix rows is 0 or if columns is not equals to two.
+     */
+    default int[][] insertion (int[][] matrix){
+        // returning null matrix dimension don't fits the purpose of creating this method.
+        if (matrix.length == 0 || matrix[0].length != 2){
+            return null;
+        }
+        for (int index = 1; index<matrix.length; index++ ){
+            int tempIndex = index;
+            int[] tempItem = matrix[index];
+            while (tempIndex > 0 && tempItem[1] < matrix[tempIndex-1][1]){
+                // Replace the larger item that have smaller index.
+                matrix[tempIndex] = matrix[tempIndex-1];
+                // Rearrange the temp index.
+                tempIndex--;
+            }
+            // Replace the temp item.
+            matrix[tempIndex] = tempItem;
+        }
+        return matrix;
+    }
 }

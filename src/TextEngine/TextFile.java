@@ -54,6 +54,7 @@ public class TextFile implements Utilities,Sort,Search{
      * @return TextFile object or null if the process failed because of wrong input such as wrong file format or if the file is not exist.
      */
     public static TextFile open(String filePath){
+        filePath = filePath.replace("\\","\\\\");                                         // replace "\" with "/" to be able to open the file. tested on just windows.
         File file = new File(filePath);
         if (!file.exists()) {                                                                            // checks if the file is exist.
             return null;

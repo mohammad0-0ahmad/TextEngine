@@ -45,12 +45,12 @@ public class TextEngine implements Sort {
      * It's a user interface in console that helps to select and execute a specific operation.
      */
     public void start() {
-        System.out.println("\t\t>> Hej och välkommen till våra text motor.\u263A <<");
+        System.out.print("\t\t>> Hej och välkommen till våra text motor.\u263A <<");
         Scanner userInput = new Scanner(System.in);
         String userSelection = "0";
         while (!userSelection.equals("e")) {
             System.out.println("" +
-                    "\t(o) Öppna en ny fil." +
+                    "\n\t(o) Öppna en ny fil." +
                     "\n\t(a) Skriva ut fil innehållet." +
                     "\n\t(b) Sortera de samtliga befintliga filerna." +
                     "\n\t(c) Leta efter ett ord." +
@@ -132,7 +132,7 @@ public class TextEngine implements Sort {
                     searchResult[i][0] = i;
                     searchResult[i][1] = files.get(i).search(wordToLookFor);
                 }
-                System.out.println("\t\tResultatet av sökning på " + wordToLookFor + "ordet:");
+                System.out.println("\t\tResultatet av sökning på \" " + wordToLookFor + " \" ordet:");
                 // Calling the method that prints sorted result.
                 System.out.println(sortSearchResult(searchResult));
             }
@@ -142,21 +142,25 @@ public class TextEngine implements Sort {
     }
 
     /**
-     * It sort search result.
-     * @param result a sorted search result.
+     * It sort search result and return a string that displays to the user.
+     * @param result  unsorted search result.
+     * @return a text that is readable by the user.
      */
     private String sortSearchResult(int[][] result) {
         StringBuffer resultText = new StringBuffer("");
-        // todo Sorting the result
-
+        //Sorting the result
+        result = insertion(result);
         // Creating the text that show the result.
-        for (int i = 0 ; i < result.length;i++){
-            //
+        for (int i = result.length-1 ; i >= 0 ;i--){
+            // Get file name that is related to search result.
             String fileName = this.files.get(result[i][0]).getName();
-            //
+            // To skipping the result of the files that don't contain the word.
             if(result[i][1]>0) {
-                resultText.append("Sökord finns " + result[i][1] + " gånger  i " + fileName + "  filen.");
-            }else {break;}
+                resultText.append("Sökordet finns " + result[i][1] + " gånger i " + fileName + "  filen.");
+            }else {break;}                  //no need to continue because the result array is sorted.
+        }
+        if(resultText.toString().equals("")){
+            return "\t\t!!Ingen textfil innehåller sökordet!!";
         }
         return resultText.toString();
     }

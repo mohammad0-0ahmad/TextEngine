@@ -7,7 +7,7 @@ public interface Search extends Utilities {
      * It execute a binary searching on a sorted method.
      * @param word a word that method looks for.
      * @param arrayUsedInSearch an string array list that could store the word.
-     * @return a number that refer to amount of words that is equals with the passed word.
+     * @return -2 if array list is null OR -1 if it is empty OR 0 if the word is not exist OR larger number that refer to amount of words that is equals with the passed word.
      */
     default int binary(String word, ArrayList<String> arrayUsedInSearch){
         //In case arrayUsedInSearch is null
