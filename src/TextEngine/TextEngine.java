@@ -50,8 +50,8 @@ public class TextEngine implements Sort {
         String userSelection = "0";
         while (!userSelection.equals("e")) {
             System.out.println("" +
-                    "\n\t(o) Öppna en ny fil." +
-                    "\n\t(a) Skriva ut fil innehållet." +
+                    "\n\t(o) Öppna en ny fil och addera innehållet." +
+                    "\n\t(a) Skriva ut innehållet på alla öppnades filer." +
                     "\n\t(b) Sortera de samtliga befintliga filerna." +
                     "\n\t(c) Leta efter ett ord." +
                     "\n\t(d) Spara aktuella resultat i en externa text fil." +
@@ -62,7 +62,7 @@ public class TextEngine implements Sort {
                 // To open a text file and add it to files member variable.
                 case "o": open();break;
                 // To print the contents of the exist text files.
-                case "a": printFilesContent();break;
+                case "a": System.out.println(getContents());break;
                 //  To sort the content of all opened text files.
                 case "b": sort();break;
                 // To call the method that make a search inside all opened text files.
@@ -173,9 +173,21 @@ public class TextEngine implements Sort {
     }
 
     /**
-     *
+     * It organizes the output of all opened files and prepare it to be readable by user.
+     * @return a string that hold the contents of all opened text files that stores inside {@link #files}.
      */
-    private void printFilesContent() {
+    private String getContents() {
+        // In case the user have not opened a text file yet.
+        if (files.size() == 0) {
+            return "Du har inte öppnat någon textfil än!!";
+        } else {
+            // Prepare the result that will be show to the user later.
+            StringBuffer resultToPrint = new StringBuffer("");
+            for (int i = 0; i < files.size(); i++) {
+                resultToPrint.append("Filnamn: " + files.get(i).getName() + "\n>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<\n" + files.get(i).getContent() + "\n________________________________________\n");
+            }
+            return resultToPrint.toString();
+        }
     }
 
     /**

@@ -99,11 +99,33 @@ public class TextFile implements Utilities,Sort,Search{
     }
 
     /**
-     C:\Users\98davfur\Documents    *
-     * @return
+     * It formats text formed from content text array depending on text file status (sorted or not).
+     * @return a string hold formatted content.
      */
     public String getContent() {
-        return null;
+        StringBuffer content = new StringBuffer();
+        if(!sorted){
+            for (int i =0; i < this.content.size(); i++) {
+                content.append(this.content.get(i));
+                // To add whitespaces between words except after last word of content.
+                if (i != this.content.size()-1){
+                    content.append(" ");
+                }
+            }
+        }else {
+            for (int i =0; i < this.content.size(); i++) {
+                content.append(this.content.get(i));
+                // To add whitespaces between words except after last word of content and after every 10 words.
+                if (i != this.content.size()-1 && (i+1)%10 !=0){
+                    content.append(" ");
+                }else
+                // To add break line after every 10 words.
+                if ((i+1)%10 ==0){
+                    content.append("\n");
+                }
+            }
+        }
+        return content.toString();
     }
 
     /**

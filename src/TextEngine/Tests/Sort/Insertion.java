@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * Test class that checks insertion method.
  * link to the method {@link Sort#insertion(int[][])}.
  */
-public class insertion implements Sort {
+public class Insertion implements Sort {
     @Test
     /**
      * Test checks if the method return correct values by passing a matrix.
