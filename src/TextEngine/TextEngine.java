@@ -97,6 +97,13 @@ public class TextEngine implements Sort {
      *
      */
     private void sort() {
+        if (files.size() > 0){
+            for (int i = 0; i < files.size(); i++) {
+                if (!files.get(i).isSorted()){
+                    files.get(i).startSorting();
+                }
+            }
+        }
     }
 
     /**
@@ -122,7 +129,7 @@ public class TextEngine implements Sort {
             }
             // Start searching.
             if (filesContentsIsSorted || userDecision) {
-                System.out.println("Inmata gärna ordet du vill lita efter:");
+                System.out.println("Inmata gärna ordet du vill leta efter:");
                 // Word will be entered by user.
                 String wordToLookFor = new Scanner(System.in).nextLine();
                 // array that will hold the search result.

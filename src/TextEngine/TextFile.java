@@ -99,7 +99,7 @@ public class TextFile implements Utilities,Sort,Search{
     }
 
     /**
-     *
+     C:\Users\98davfur\Documents    *
      * @return
      */
     public String getContent() {
@@ -107,10 +107,19 @@ public class TextFile implements Utilities,Sort,Search{
     }
 
     /**
-     * calls the sorting-method from the Sort-interface to order the text in alphabetical order
+     * If the textFiles aren't sorted yet, call the 'RemoveSign
+     *
      */
-    public void sort() {
-
+    public void startSorting() {
+        int lowestIndex = 0;
+        int highestIndex= content.size()-1;
+        if (!this.sorted){
+            for(int i= 0; i < content.size(); i++){
+                content.set(i,removeSigns(this.content.get(i)));
+            }
+            this.content = quickSort(this.content, lowestIndex, highestIndex);
+        }
+        System.out.println(content);
     }
 
     /**
