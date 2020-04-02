@@ -40,7 +40,6 @@ public interface Sort extends Utilities {
     default ArrayList<String> quickSort(ArrayList<String> text, int low, int high) {
         if (low < high){
             int pi = partitioning(text, low, high);
-            System.out.println(pi);
             quickSort(text, low, pi-1);
             quickSort(text, pi+1, high);
         }

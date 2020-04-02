@@ -60,15 +60,16 @@ public class TextEngine implements Sort {
             userSelection = userInput.nextLine();
             switch (userSelection){
                 // To open a text file and add it to files member variable.
-                case "o": open();break;
+                case "o": openFile();break;
                 // To print the contents of the exist text files.
                 case "a": System.out.println(getContents());break;
                 //  To sort the content of all opened text files.
-                case "b": sort();break;
+                case "b": sortFilesContents();break;
                 // To call the method that make a search inside all opened text files.
-                case "c": search();break;
+                case "c": searchInFiles();break;
                 // To save the current result of the opened text files.
-                case "d":save();break;
+                case "d":
+                    saveFilesContents();break;
                 // To exit the application.
                 case "e":
                     System.out.println("Hejdå och välkommen åter!! \uD83D\uDC4B");break;
@@ -82,7 +83,7 @@ public class TextEngine implements Sort {
     /**
      * It's like a wizard that helps the user with opening a text file and add it to {@link #files} member variable..
      */
-    private void open() {
+    private void openFile() {
         System.out.println("Ange filväg som tillhör till den önskad textfilen du vill öppna:");
         TextFile temp = TextFile.open(new Scanner(System.in).nextLine());
         if (temp != null) {
@@ -96,11 +97,11 @@ public class TextEngine implements Sort {
     /**
      *
      */
-    private void sort() {
+    private void sortFilesContents() {
         if (files.size() > 0){
             for (int i = 0; i < files.size(); i++) {
                 if (!files.get(i).isSorted()){
-                    files.get(i).startSorting();
+                    files.get(i).sortContent();
                 }
             }
         }
@@ -109,7 +110,7 @@ public class TextEngine implements Sort {
     /**
      * It's like a wizard that helps the user with looking for a word inside text files {@link #files} member variable..
      */
-    private void search() {
+    private void searchInFiles() {
         if (files.size() > 0) {
             boolean filesContentsIsSorted = true, userDecision = false;
             // Checking if every opened text file content is sorted be checking sorted member value.
@@ -124,6 +125,7 @@ public class TextEngine implements Sort {
                 System.out.println("Jag rekomenderar att exekvera sökning på sorterad text för att få noggrannt resultat så sortera gärna texter först!!");
                 System.out.println("Annars Jag kan fortfarande exekvera en sökning.\n Vill du fortsätta ändå? \n (y) ja, det vill jag. \n (Annars) Visa huvudmenyn.");
                 if (new Scanner(System.in).nextLine().equals("y")) {
+                    System.out.println("!! Notera att vissa tecken kan räknas som en bokstav av ordet i fall fanns inte mellanslag mellan dem.\n\t\tExemplvis: (. , : ! ? ) osv");
                     userDecision = true;
                 }
             }
@@ -193,7 +195,7 @@ public class TextEngine implements Sort {
     /**
      *
      */
-    private void save() {
+    private void saveFilesContents() {
     }
 
 }

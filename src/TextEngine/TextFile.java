@@ -132,7 +132,7 @@ public class TextFile implements Utilities,Sort,Search{
      * If the textFiles aren't sorted yet, call the 'RemoveSign
      *
      */
-    public void startSorting() {
+    public void sortContent() {
         int lowestIndex = 0;
         int highestIndex= content.size()-1;
         if (!this.sorted){
@@ -140,8 +140,8 @@ public class TextFile implements Utilities,Sort,Search{
                 content.set(i,removeSigns(this.content.get(i)));
             }
             this.content = quickSort(this.content, lowestIndex, highestIndex);
+            sorted=true;
         }
-        System.out.println(content);
     }
 
     /**
