@@ -45,7 +45,7 @@ public class TextEngine implements Sort {
      * It's a user interface in console that helps to select and execute a specific operation.
      */
     public void start() {
-        System.out.print("\t\t>> Hej och välkommen till våra text motor.\u263A <<");
+        System.out.print("\t\t>> Hej och välkommen till våran text motor.\u263A <<");
         Scanner userInput = new Scanner(System.in);
         String userSelection = "0";
         while (!userSelection.equals("e")) {
@@ -95,7 +95,7 @@ public class TextEngine implements Sort {
     }
 
     /**
-     *
+     * If the file-arrays size is more than 0, loop through the size of the file. And if the file isn't already sorted, call the 'sortContent'-method
      */
     private void sortFilesContents() {
         if (files.size() > 0){

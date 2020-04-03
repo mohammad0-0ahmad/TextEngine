@@ -129,7 +129,8 @@ public class TextFile implements Utilities,Sort,Search{
     }
 
     /**
-     * If the textFiles aren't sorted yet, call the 'RemoveSign
+     * If the textFiles aren't sorted yet, call the 'RemoveSign'-method which removes special-signs at the end of the word.
+     * Then it calls the quickSortFunction which sorts the words in a alphabetical order
      *
      */
     public void sortContent() {

@@ -25,7 +25,7 @@ public interface Utilities {
     }
 
     // !!Following method may don't cover all punctuation!!
-    /** It removes some common punctuation that can be exist at the start or at the end of a word.
+    /** It removes some common punctuation that can exist at the start or end of a word.
      * @param word word that need to be clean.
      * @return word without some common punctuation that can be exist on the edges.
      */
