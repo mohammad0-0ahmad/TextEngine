@@ -4,7 +4,7 @@ import static TextEngine.TextFile.open;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 /**
- * Test class that tests TextFile.open method.
+ * Test class that tests {@link TextEngine.TextFile#open(String)} method.
  */
 class Open {
     /**

@@ -54,7 +54,7 @@ public class TextFile implements Utilities,Sort,Search{
      * @return TextFile object or null if the process failed because of wrong input such as wrong file format or if the file is not exist.
      */
     public static TextFile open(String filePath){
-        filePath = filePath.replace("\\","\\\\");                                         // replace "\" with "/" to be able to open the file. tested on just windows.
+        filePath = filePath.replace("\\","\\\\");                                         // replaces "\" with "\\" to be able to open the file. tested just on windows.
         File file = new File(filePath);
         if (!file.exists()) {                                                                            // checks if the file is exist.
             return null;
@@ -63,7 +63,7 @@ public class TextFile implements Utilities,Sort,Search{
         }
         StringBuffer content = new StringBuffer();
         try {
-            content.append(new String(Files.readAllBytes(Paths.get(filePath))));                             // read the file and store the content inside content variable.
+            content.append(new String(Files.readAllBytes(Paths.get(filePath))));                             // reads the file and store the content inside content variable.
         }catch (Exception e){
             return null;
         }
@@ -71,13 +71,26 @@ public class TextFile implements Utilities,Sort,Search{
     }
 
     /**
-     *
-     * @param content
-     * @param path
-     * @return
+     * It creates or replace an external text file.
+     * @param content content will be written inside the created text file.
+     * @param path file path there text file will be stored.
+     * @return a string that contain a message that can be shown for user.
      */
-    public static boolean save(String content,String path){
-        return false;
+    public static String save(String content, String path){
+        path = path.replace("\\","\\\\");                                         // replaces "\" with "\\" to be able to save the file. tested just on windows.
+        File file = new File(path);
+        try {
+            // Create the external file.
+            file.createNewFile();
+            // Create FileWriter object that helps to write the content inside the created file.
+            FileWriter writer = new FileWriter(file);
+            writer.write(content);
+            writer.close();
+        }catch (IOException e){
+            // Returns error message.
+            return e.getMessage();
+        }
+        return "Det gick bra med att spara "+ file.getName() +" filen.";
     }
     ////////////////////////////////////////////////////
     /*>>>> Member methods <<<<*/

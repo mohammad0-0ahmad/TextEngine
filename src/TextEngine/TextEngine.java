@@ -1,5 +1,6 @@
 package TextEngine;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -58,22 +59,32 @@ public class TextEngine implements Sort {
                     "\n\t(e) Avsluta Programmet." +
                     "\n\t\tInmata ditt val:");
             userSelection = userInput.nextLine();
-            switch (userSelection){
+            switch (userSelection) {
                 // To open a text file and add it to files member variable.
-                case "o": openFile();break;
+                case "o":
+                    openFile();
+                    break;
                 // To print the contents of the exist text files.
-                case "a": System.out.println(getContents());break;
+                case "a":
+                    System.out.println(getContents());
+                    break;
                 //  To sort the content of all opened text files.
-                case "b": sortFilesContents();break;
+                case "b":
+                    sortFilesContents();
+                    break;
                 // To call the method that make a search inside all opened text files.
-                case "c": searchInFiles();break;
+                case "c":
+                    searchInFiles();
+                    break;
                 // To save the current result of the opened text files.
                 case "d":
-                    saveFilesContents();break;
+                    saveFilesContents();
+                    break;
                 // To exit the application.
                 case "e":
-                    System.out.println("Hejdå och välkommen åter!! \uD83D\uDC4B");break;
-                    // Printing an error message when user enter false options that is not exist in the main menu.
+                    System.out.println("Hejdå och välkommen åter!! \uD83D\uDC4B");
+                    break;
+                // Printing an error message when user enter false options that is not exist in the main menu.
                 default:
                     System.err.println("!!Ogiltigt val!! Välja gärna en giltig alternativ av lisatn nedan. \uD83D\uDE20");
             }
@@ -98,9 +109,9 @@ public class TextEngine implements Sort {
      * If the file-arrays size is more than 0, loop through the size of the file. And if the file isn't already sorted, call the 'sortContent'-method
      */
     private void sortFilesContents() {
-        if (files.size() > 0){
+        if (files.size() > 0) {
             for (int i = 0; i < files.size(); i++) {
-                if (!files.get(i).isSorted()){
+                if (!files.get(i).isSorted()) {
                     files.get(i).sortContent();
                 }
             }
@@ -145,14 +156,15 @@ public class TextEngine implements Sort {
                 // Calling the method that prints sorted result.
                 System.out.println(sortSearchResult(searchResult));
             }
-        }else {
+        } else {
             System.err.println("Du har inte öppnat någon textfil än!!");
         }
     }
 
     /**
      * It sort search result and return a string that displays to the user.
-     * @param result  unsorted search result.
+     *
+     * @param result unsorted search result.
      * @return a text that is readable by the user.
      */
     private String sortSearchResult(int[][] result) {
@@ -160,15 +172,17 @@ public class TextEngine implements Sort {
         //Sorting the result
         result = insertion(result);
         // Creating the text that show the result.
-        for (int i = result.length-1 ; i >= 0 ;i--){
+        for (int i = result.length - 1; i >= 0; i--) {
             // Get file name that is related to search result.
             String fileName = this.files.get(result[i][0]).getName();
             // To skipping the result of the files that don't contain the word.
-            if(result[i][1]>0) {
-                resultText.append("Sökordet finns " + result[i][1] + " gånger i " + fileName + "  filen.");
-            }else {break;}                  //no need to continue because the result array is sorted.
+            if (result[i][1] > 0) {
+                resultText.append("Sökordet finns " + result[i][1] + " gånger i " + fileName + " filen.\n");
+            } else {
+                break;
+            }                  //no need to continue because the result array is sorted.
         }
-        if(resultText.toString().equals("")){
+        if (resultText.toString().equals("")) {
             return "\t\t!!Ingen textfil innehåller sökordet!!";
         }
         return resultText.toString();
@@ -176,6 +190,7 @@ public class TextEngine implements Sort {
 
     /**
      * It organizes the output of all opened files and prepare it to be readable by user.
+     *
      * @return a string that hold the contents of all opened text files that stores inside {@link #files}.
      */
     private String getContents() {
@@ -193,9 +208,60 @@ public class TextEngine implements Sort {
     }
 
     /**
-     *
+     * It's like a wizard that helps the user with saving the contents of the opened files {@link #files}.
      */
     private void saveFilesContents() {
+        // Checking if the user have opened a text file.
+        if (files.size() == 0) {
+            System.out.println("Du har inte öppnat någon textfil än!!");
+        } else {
+            System.out.println("OBS! Filen kommer att lagras i skrivbordet ifall det lyckades.");
+            // Text file will be stored always in desktop "windows os"
+            String desktopPath = System.getProperty("user.home") + "\\Desktop\\";
+            StringBuffer fileName = new StringBuffer();
+            Boolean readyToSave = false;
+            // Force the user to enter file name.
+            while (fileName.length() == 0) {
+                System.out.println("Inmata ett namn på filen du vill spara!");
+                // store the name
+                fileName.replace(0, fileName.length(), new Scanner(System.in).nextLine());
+                if (fileName.length() == 0) {
+                    System.err.println("Du måste ange ett namn!");
+                }
+            }
+
+            // Checking if the file name have " .txt " at the end and added it in case it wasn't exist.
+            if (fileName.length() > 4) {
+                if (!fileName.substring(fileName.length() - 4).equals(".txt")) {
+                    fileName.append(".txt");
+                }
+            } else {
+                fileName.append(".txt");
+            }
+            // Checking if the file is already exist and make user decide in case it is exist.
+            boolean fileIsAlreadyExist = new File(desktopPath + fileName).exists();
+            if (!fileIsAlreadyExist) {
+                readyToSave = true;
+            } else {
+                System.out.println("Filen finns redan.\nVill du byta den aktuella filen?\n(y) Ja, det vill jag.\n (Annars) Visa huvudmenyn.");
+                if (new Scanner(System.in).nextLine().equals("y")) {
+                    readyToSave = true;
+                }
+            }
+            // Calling the method that will save the file.
+            if (readyToSave) {
+                StringBuffer saveContent = new StringBuffer("");
+                files.forEach((file) -> {
+                    saveContent.append(file.getContent() + "\n\n");
+                });
+                // Storing a message will be shown for the user.
+                String msg = TextFile.save(saveContent.toString(),desktopPath + fileName.toString());
+                System.out.println(msg);
+            } else {
+                System.err.println("!! Text filen har inte sparat. !!");
+            }
+        }
+
     }
 
 }
