@@ -10,26 +10,25 @@ public interface Sort extends Utilities {
      * @param text the ArrayList of words that will be ordered
      * @param low the lowest index in the array
      * @param high the highest index in the array
-     * @return the value of 'i +1' is the spot on the array that the pivot
+     * @return the value of 'i +1' is the last value before the 'pivot'
      */
     default int partitioning(ArrayList<String> text, int low, int high){
         String temp;
-        String pivot = text.get(text.size() - 1); // Getting the last string in the array
+        String pivot = text.get(high); // Getting the last string in the array
         int i = (low - 1);
             for (int j = low; j < high; j++) {
                 if (isXBeforeY(text.get(j), pivot)) {
                     i++;
                     temp = text.get(i);
                     text.set(i, text.get(j));
-                    text.set(j, temp);
+                    text.set(j, temp); //set the element at 'j' to to the element at 'i'
                 }
             }
             temp = text.get(i + 1);
             text.set(i + 1, text.get(high));
-            text.set(high, temp);
-        return i + 1;
+            text.set(high, temp); //set the index of 'high' to the value of the last index before the pivot
+        return i + 1; //return the last value before the pivot
     }
-
     /**
      * Calls the partitioning-method as long as the the value of low is less than high
      * @param text the ArrayList of words that will be ordered

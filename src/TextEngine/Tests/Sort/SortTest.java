@@ -6,31 +6,47 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Test to see if values are sorted correctly
+ */
 class SortTest implements Sort{
     @Test
+    /**
+     * Tests if the 'partitioning'-method returns the last index closes to the 'pivot' correctly
+     * also checks if the elements are sorted correctly
+     */
     void TestIfItSorts() {
         ArrayList<String> arrayList = new ArrayList<>();
-        arrayList.add("Strings");
-        arrayList.add("Are");
-        arrayList.add("For");
-        arrayList.add("Dummies");
-
-        ArrayList<String> arrayListSorted = new ArrayList<>();
-        arrayListSorted.add("Are");
-        arrayListSorted.add("Dummies");
-        arrayListSorted.add("For");
-        arrayListSorted.add("Strings");
-
-        String high = arrayList.get(arrayList.size() - 1); //Getting the first string in the array
-        int highest = arrayList.indexOf(high);
-
-        String low = arrayList.get(0); //Getting the first string in the array
-        int lowest = arrayList.indexOf(low);
+        arrayList.add("Daniel");
+        arrayList.add("Alexander");
+        arrayList.add("Anna");
+        arrayList.add("David");
+        arrayList.add("Julia");
+        arrayList.add("Joakim");
+        arrayList.add("Kid");
+        arrayList.add("Mattias");
+        arrayList.add("Simon");
+        arrayList.add("Millad");
 
 
-        assertEquals(1, partitioning(arrayList, lowest, highest));
-        assertEquals(arrayList, quickSort(arrayList, lowest, highest));
+        //the last element in the array
+        int high = arrayList.size()-1;
 
+        //expected value is 9 since the index closest to the pivot is returned
+        assertEquals(9, partitioning(arrayList, 0, high));
+
+        //expected value is the array-list but ordered
+        quickSort(arrayList,0,high);
+        assertEquals("Alexander",arrayList.get(0));
+        assertEquals("Anna",arrayList.get(1));
+        assertEquals("Daniel",arrayList.get(2));
+        assertEquals("David",arrayList.get(3));
+        assertEquals("Joakim",arrayList.get(4));
+        assertEquals("Julia",arrayList.get(5));
+        assertEquals("Kid",arrayList.get(6));
+        assertEquals("Mattias",arrayList.get(7));
+        assertEquals("Millad",arrayList.get(8));
+        assertEquals("Simon",arrayList.get(9));
     }
 
 }
