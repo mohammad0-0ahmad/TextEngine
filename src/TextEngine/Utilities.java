@@ -28,35 +28,46 @@ public interface Utilities {
     }
 
     // !!Following method may don't cover all punctuation!!
-    /** It removes some common punctuation that can exist at the start or end of a word.
+    /** It removes some common punctuation or other symbols that can exist at the start or end of a word except "-" at left side that can refer to negative numbers.
      * @param word word that need to be clean.
      * @return word without some common punctuation that can be exist on the edges.
      */
     default String removeSigns(String word) {
+        // Returning empty string in case word was empty.
+        if(word.length()==0){return "";}
+        // A string will be returned later.
         StringBuffer result = new StringBuffer(word);
-        // an array that hold ascii values for common punctuation. note 39 represent single quote mark.
-        int[] commonPunctuationToRemove = new int[]{(int) '.', (int) ',', (int) '!', (int) '?', (int) '"', (int) ':', (int) '-', (int) '_', (int) '(', (int) ')', (int) '[', (int) ']', (int) '{', (int) '}', (int) '/', (int) '*', (int) '&', (int) '+',BREAK_LINE,TAB,39};
-        // Cleaning the right side of the word.
-        for (int i = 0; i < commonPunctuationToRemove.length; i++) {
-            if (result.length() == 0) {
-                break;
+        // variables names explain the purpose.  couldBeNegativeNumber will be used to handle a string that is a negative number.
+        Boolean doneWithRightEdge = false, doneWithLeftSide = false ,couldBeNegativeNumber = false;
+        // Start cleaning.
+        while (!doneWithLeftSide || !doneWithRightEdge){
+            // Cleaning left edge.
+            if (!doneWithLeftSide) {
+                int firstLetterAscii = result.charAt(0);
+                if ((firstLetterAscii >= 48 && firstLetterAscii <= 57) || (firstLetterAscii >= 65 && firstLetterAscii <= 90) || (firstLetterAscii >= 97 && firstLetterAscii <= 122) || (firstLetterAscii >= 128 && firstLetterAscii <= 165)) {
+                    doneWithLeftSide = true;
+                } else {
+                    // setting couldBeNegativeNumber as true in case the first letter is "-" and the next letter is a number.
+                    couldBeNegativeNumber = (firstLetterAscii == 45 && result.charAt(1) >= 48 && result.charAt(1) <= 57) ? true:false;
+                    // Removing first char.
+                    result.deleteCharAt(0);
+                }
             }
-            if ((int) result.charAt(result.length() - 1) == commonPunctuationToRemove[i]) {
-                result.deleteCharAt(result.length() - 1);
-                i = -1;
-                continue;
+            if(result.length()==0){break;}
+            // Cleaning right edge.
+            if (!doneWithRightEdge) {
+                int lastLetterAscii = result.charAt(result.length()-1);
+                if ((lastLetterAscii >= 48 && lastLetterAscii <= 57) || (lastLetterAscii >= 65 && lastLetterAscii <= 90) || (lastLetterAscii >= 97 && lastLetterAscii <= 122) || (lastLetterAscii >= 128 && lastLetterAscii <= 165)) {
+                    doneWithRightEdge = true;
+                } else {
+                    // Removing last letter.
+                    result.deleteCharAt(result.length()-1);
+                }
             }
         }
-        // Cleaning the left side of the word.
-        for (int i = 0; i < commonPunctuationToRemove.length; i++) {
-            if (result.length() == 0) {
-                break;
-            }
-            if ((int) result.charAt(0) == commonPunctuationToRemove[i]) {
-                result.deleteCharAt(0);
-                i = -1;
-                continue;
-            }
+        // Adding a "-" in case the last removed letter was "-" to be able to keep negative numbers.
+        if (couldBeNegativeNumber){
+            return "-" + result.toString();
         }
         return result.toString();
     }
