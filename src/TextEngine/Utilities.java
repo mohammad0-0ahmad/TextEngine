@@ -44,6 +44,7 @@ public interface Utilities {
             // Cleaning left edge.
             if (!doneWithLeftSide) {
                 int firstLetterAscii = result.charAt(0);
+                // Check this link to understand what the followings numbers (Ascii values) means. http://www.asciitable.com/
                 if ((firstLetterAscii >= 48 && firstLetterAscii <= 57) || (firstLetterAscii >= 65 && firstLetterAscii <= 90) || (firstLetterAscii >= 97 && firstLetterAscii <= 122) || (firstLetterAscii >= 128 && firstLetterAscii <= 165)) {
                     doneWithLeftSide = true;
                 } else {
