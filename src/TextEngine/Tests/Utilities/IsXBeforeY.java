@@ -22,9 +22,16 @@ public class IsXBeforeY implements Utilities {
         assertTrue(isXBeforeY("abs", "Abs"));
         assertFalse(isXBeforeY("Äbs", "zbs"));
         assertFalse(isXBeforeY("Ah", "aa"));
-        assertFalse(isXBeforeY("Ah", "aa!"));
-        assertFalse(isXBeforeY("1", "00001"));
+        assertTrue(isXBeforeY("Ah", "Ah!"));
+
+        // testing if it compares correctly between tow numbers.
+        assertTrue(isXBeforeY("9", "10"));
+        assertTrue(isXBeforeY("1", "00001"));
         assertFalse(isXBeforeY("1", " 0"));
         assertFalse(isXBeforeY("1", "-1"));
+
+        // testing if it compares correctly between a numbers and a word.
+        assertTrue(isXBeforeY("10", "Hello"));
+        assertFalse(isXBeforeY("Hello World","10"));
     }
 }
