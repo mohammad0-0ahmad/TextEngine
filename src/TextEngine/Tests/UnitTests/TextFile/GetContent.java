@@ -1,4 +1,4 @@
-package TextEngine.Tests.TextFile;
+package TextEngine.Tests.UnitTests.TextFile;
 
 import TextEngine.TextFile;
 import org.junit.jupiter.api.Test;

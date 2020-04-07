@@ -21,8 +21,10 @@ public interface Utilities {
             return xAsNumber <= yAsNumber;
         }catch (Exception e){}
         // To avoid incorrect result when having uppercase letter. " To ignore ascii order"
+        try{
         x = x.toLowerCase();
         y = y.toLowerCase();
+        }catch (Exception e){}
         // if the x is before or x = y.
         return (x.compareTo(y) <= 0);
     }
@@ -45,7 +47,9 @@ public interface Utilities {
             if (!doneWithLeftSide) {
                 int firstLetterAscii = result.charAt(0);
                 // Check this link to understand what the followings numbers (Ascii values) means. http://www.asciitable.com/
-                if ((firstLetterAscii >= 48 && firstLetterAscii <= 57) || (firstLetterAscii >= 65 && firstLetterAscii <= 90) || (firstLetterAscii >= 97 && firstLetterAscii <= 122) || (firstLetterAscii >= 128 && firstLetterAscii <= 165)) {
+                // OBS! In the previous link the range between 128 and 165 doesn't work correctly with swedish letters. So this range is replaced with following values.
+                // 229 å , 197 Å , 228 ä , 196 Ä , 214 Ö , 246 ö
+                if (( (firstLetterAscii >= 48 && firstLetterAscii <= 57) || (firstLetterAscii >= 65 && firstLetterAscii <= 90) || (firstLetterAscii >= 97 && firstLetterAscii <= 122) ) || firstLetterAscii == 229  || firstLetterAscii==197 || firstLetterAscii==228 || firstLetterAscii==196 || firstLetterAscii==214 || firstLetterAscii==246) {
                     doneWithLeftSide = true;
                 } else {
                     // setting couldBeNegativeNumber as true in case the first letter is "-" and the next letter is a number.
@@ -58,7 +62,7 @@ public interface Utilities {
             // Cleaning right edge.
             if (!doneWithRightEdge) {
                 int lastLetterAscii = result.charAt(result.length()-1);
-                if ((lastLetterAscii >= 48 && lastLetterAscii <= 57) || (lastLetterAscii >= 65 && lastLetterAscii <= 90) || (lastLetterAscii >= 97 && lastLetterAscii <= 122) || (lastLetterAscii >= 128 && lastLetterAscii <= 165)) {
+                if (( (lastLetterAscii >= 48 && lastLetterAscii <= 57) || (lastLetterAscii >= 65 && lastLetterAscii <= 90) || (lastLetterAscii >= 97 && lastLetterAscii <= 122) || (lastLetterAscii >= 128 && lastLetterAscii <= 165) )  || lastLetterAscii == 229  || lastLetterAscii==197 || lastLetterAscii==228 || lastLetterAscii==196 || lastLetterAscii==214 || lastLetterAscii==246) {
                     doneWithRightEdge = true;
                 } else {
                     // Removing last letter.

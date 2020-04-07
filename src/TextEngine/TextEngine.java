@@ -53,7 +53,7 @@ public class TextEngine implements Sort {
             System.out.println("" +
                     "\n\t(o) Öppna en ny fil och addera innehållet." +
                     "\n\t(a) Skriva ut innehållet på alla öppnades filer." +
-                    "\n\t(b) Sortera de samtliga befintliga filerna." +
+                    "\n\t(b) Sortera de samtliga befintliga filerna. OBS! Onödiga tecken försvinner efter sortering." +
                     "\n\t(c) Leta efter ett ord." +
                     "\n\t(d) Spara aktuella resultat i en externa text fil." +
                     "\n\t(e) Avsluta Programmet." +
@@ -116,6 +116,7 @@ public class TextEngine implements Sort {
                 }
             }
         }
+        System.out.println("Färdigt med sortering!!\nInnehållet är sorterat. \u263A ");
     }
 
     /**
