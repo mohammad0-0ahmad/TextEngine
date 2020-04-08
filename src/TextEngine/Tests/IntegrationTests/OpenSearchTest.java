@@ -2,7 +2,7 @@ package TextEngine.Tests.IntegrationTests;
 
 import TextEngine.TextFile;
 import org.junit.jupiter.api.Test;
-import static TextEngine.Tests.IntegrationTests.VariablesUsedDuringThisTest.*;
+import static TextEngine.Tests.VariablesUsedDuringTests.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**

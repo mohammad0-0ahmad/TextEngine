@@ -32,7 +32,7 @@ class SortTest implements Sort{
         int high = arrayList.size()-1;
 
         //expected value is 9 since the index closest to the pivot is returned
-        assertEquals(8, partitioning(arrayList, 0, high));
+        assertEquals(9, partitioning(arrayList, 0, high));
 
         //expected value is the array-list but ordered
         quickSort(arrayList,0,high);
