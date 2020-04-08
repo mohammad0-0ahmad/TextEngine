@@ -112,6 +112,7 @@ public class TextEngine implements Sort {
         if (files.size() > 0) {
             for (int i = 0; i < files.size(); i++) {
                 if (!files.get(i).isSorted()) {
+                    System.out.println("File has been sorted");
                     files.get(i).sortContent();
                 }
             }

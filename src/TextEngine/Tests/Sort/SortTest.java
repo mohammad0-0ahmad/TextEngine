@@ -25,8 +25,9 @@ class SortTest implements Sort{
         arrayList.add("Joakim");
         arrayList.add("Kid");
         arrayList.add("Mattias");
-        arrayList.add("Simon");
         arrayList.add("Millad");
+        arrayList.add("Simon");
+
 
 
         //the last element in the array
