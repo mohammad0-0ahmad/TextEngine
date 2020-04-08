@@ -7,12 +7,12 @@ import static TextEngine.Tests.VariablesUsedDuringTests.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- *
+ * SystemTest-class used to test the efficiency of using Sort and Search simultaneously.
  */
 public class OpenSearchSortTest {
 
     /**
-     *
+     * Testing the efficiency of the sorting and searching-methods in a text file with only words
      */
     @Test
     public void textTest(){
@@ -27,7 +27,7 @@ public class OpenSearchSortTest {
         assertEquals(3,openedFile.search("nisl"));
     }
     /**
-     *
+     *Testing the efficiency of sorting and searching-methods in a text file with only numbers
      */
     @Test
     public void numberTest(){
@@ -43,7 +43,7 @@ public class OpenSearchSortTest {
         assertEquals(3,openedFile.search("-82"));
     }
     /**
-     * TODO whitespace?=
+     * TODO whitespace= difference in identical text
      */
     /*@Test
     public void combinationTest(){
