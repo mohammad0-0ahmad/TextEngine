@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class TextEngine implements Sort {
     /* Class variable */
     /**
-     *
+     * The only instance of TextEngine object.
      */
     private static TextEngine instance = new TextEngine();
 
@@ -15,7 +15,7 @@ public class TextEngine implements Sort {
     /*> Member variables <*/
 
     /**
-     *
+     * Array list that hold all opened file during runtime.
      */
     private ArrayList<TextFile> files;
 
@@ -23,7 +23,7 @@ public class TextEngine implements Sort {
     /*>> Constructor <<*/
 
     /**
-     *
+     * The constructor of TextEngine class.
      */
     private TextEngine() {
         this.files = new ArrayList<TextFile>();
@@ -33,6 +33,7 @@ public class TextEngine implements Sort {
     /*>>> Static methods <<<*/
 
     /**
+     * It returns the only TextEngine object. "singleton"
      * @return
      */
     public static TextEngine getInstance() {
@@ -46,7 +47,7 @@ public class TextEngine implements Sort {
      * It's a user interface in console that helps to select and execute a specific operation.
      */
     public void start() {
-        System.out.print("\t\t>> Hej och välkommen till våran text motor.\u263A <<");
+        System.out.print("\t\t>> Hej och välkommen till våran text motor. <<");
         Scanner userInput = new Scanner(System.in);
         String userSelection = "0";
         while (!userSelection.equals("e")) {
@@ -82,11 +83,11 @@ public class TextEngine implements Sort {
                     break;
                 // To exit the application.
                 case "e":
-                    System.out.println("Hejdå och välkommen åter!! \uD83D\uDC4B");
+                    System.out.println("Hejdå och välkommen åter!!");
                     break;
                 // Printing an error message when user enter false options that is not exist in the main menu.
                 default:
-                    System.err.println("!!Ogiltigt val!! Välja gärna en giltig alternativ av lisatn nedan. \uD83D\uDE20");
+                    System.err.println("!!Ogiltigt val!! Välja gärna en giltig alternativ av lisatn nedan.");
             }
         }
     }
@@ -99,9 +100,9 @@ public class TextEngine implements Sort {
         TextFile temp = TextFile.open(new Scanner(System.in).nextLine());
         if (temp != null) {
             files.add(temp);
-            System.out.println("Det gick bra med att öppna och addera filen. \u263A");
+            System.out.println("Det gick bra med att öppna och addera filen.");
         } else {
-            System.err.println("!!Det gick tyvärr inte att öppna filen. \u2639!! \nSe till att filensformat är '.txt' och att filen finns redan.");
+            System.err.println("!!Det gick tyvärr inte att öppna filen.!! \nSe till att filensformat är '.txt' och att filen finns redan.");
         }
     }
 
@@ -117,7 +118,7 @@ public class TextEngine implements Sort {
                 }
             }
         }
-        System.out.println("Färdigt med sortering!!\nInnehållet är sorterat. \u263A ");
+        System.out.println("Färdigt med sortering!!\nInnehållet är sorterat.");
     }
 
     /**
@@ -263,7 +264,6 @@ public class TextEngine implements Sort {
                 System.err.println("!! Text filen har inte sparat. !!");
             }
         }
-
     }
 
 }

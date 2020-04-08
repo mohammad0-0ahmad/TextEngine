@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public interface Search extends Utilities {
     /**
      * It executes a binary searching on a sorted method.
+     * It executes even type of linear searching after finding a word that match word variable value to be able to find amount of words that match it. "not on the entire content but until the checked word is not equals to word parameter value."
      * @param word a word that method looks for.
      * @param arrayUsedInSearch an string array list that could store the word.
      * @return -2 if array list is null OR -1 if it is empty OR 0 if the word is not exist OR larger number that refer to amount of words that is equals with the passed word.

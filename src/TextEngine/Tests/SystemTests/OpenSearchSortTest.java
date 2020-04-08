@@ -12,51 +12,59 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class OpenSearchSortTest {
 
     /**
-     * Testing the efficiency of the sorting and searching-methods in a text file with only words
+     * Testing the efficiency of the opening file, sorting and searching methods in a text file with only words.
      */
     @Test
     public void textTest(){
-        TextFile openedFile = TextFile.open(System.getProperty("user.home")+"\\Desktop\\TextFilesUsedWithTesting\\text.txt");
+        // opens the related file.
+        TextFile openedFile = TextFile.open(ENGLISH_TEXT_FILE_PATH);
         assertEquals(TEXT_TEST, openedFile.getContent());
-
+        // Sorts the content of the opened file.
         openedFile.sortContent();
         assertEquals(SORTED_TEXT_TEST,openedFile.getContent());
-
+        // Looking for some words after sorting the content.
         assertEquals(1,openedFile.search("ipsum"));
         assertEquals(2,openedFile.search("Nulla"));
+        // Unlike the integration test result this word will be cleaned of extra punctuation during sortContent method (before starting with sorting).
+        // So the search result will be improved.
         assertEquals(3,openedFile.search("nisl"));
     }
     /**
-     *Testing the efficiency of sorting and searching-methods in a text file with only numbers
+     *Testing the efficiency of opening file, sorting and searching methods in a text file with only numbers.
      */
     @Test
     public void numberTest(){
-        TextFile openedFile = TextFile.open(System.getProperty("user.home")+"\\Desktop\\TextFilesUsedWithTesting\\text3.txt");
-
+        // Opens the related file.
+        TextFile openedFile = TextFile.open(NUMBER_TEXT_FILE_PATH);
         assertEquals(NUMBERS_TEST, openedFile.getContent());
-
+        // Sorts the content of the opened file.
         openedFile.sortContent();
         assertEquals(SORTED_NUMBER_TEST,openedFile.getContent());
-
+        // Looking for some numbers after sorting the content.
         assertEquals(1,openedFile.search("82"));
         assertEquals(3,openedFile.search("-91"));
         assertEquals(3,openedFile.search("-82"));
     }
     /**
-     * TODO whitespace= difference in identical text
+     *Testing the efficiency of opening file, sorting and searching methods in a text file with combination of english words and numbers.
      */
-    /*@Test
+    @Test
     public void combinationTest(){
-        TextFile openedFile = TextFile.open(System.getProperty("user.home")+"\\Desktop\\TextFilesUsedWithTesting\\text4.txt");
-
+        // Opens the related file.
+        TextFile openedFile = TextFile.open(ENGLISH_NUMBERS_TEXT_FILE_PATH);
         assertEquals(COMBINATION_TEST, openedFile.getContent());
-
-
+        // Sorts the content of the opened file.
         openedFile.sortContent();
-        System.out.println(openedFile.getContent());
-        //assertEquals(SORTED_COMBINATION_TEST,openedFile.getContent());
-
+        assertEquals(SORTED_COMBINATION_TEST,openedFile.getContent());
+        // Looking for some words after sorting the content.
         assertEquals(1,openedFile.search("ipsum"));
         assertEquals(2,openedFile.search("Nulla"));
-        assertEquals(2,openedFile.search("nisl"));    }*/
+        // Unlike the integration test result this word will be cleaned of extra punctuation during sortContent method (before starting with sorting).
+        // So the search result will be improved.
+        assertEquals(3,openedFile.search("nisl"));
+        //looking for some numbers.
+        assertEquals(1,openedFile.search("1"));
+        assertEquals(1,openedFile.search("66"));
+        assertEquals(2,openedFile.search("-53"));
+    }
 }

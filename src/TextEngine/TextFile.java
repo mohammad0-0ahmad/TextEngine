@@ -9,15 +9,15 @@ public class TextFile implements Utilities,Sort,Search{
     /*> Member variables <*/
 
     /**
-     *
+     * Boolean variable that show the status of the content. True if the content is sorted or false if it's not.
      */
     private boolean sorted;
     /**
-     *
+     * Hold the name of the text file.
      */
     private String name;
     /**
-     *
+     * Array list that holds all words "every letter or number between tow whitespaces" which is found inside the text file.
      */
     private ArrayList <String> content;
 

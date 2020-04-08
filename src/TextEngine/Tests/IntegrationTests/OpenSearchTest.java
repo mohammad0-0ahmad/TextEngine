@@ -16,7 +16,7 @@ public class OpenSearchTest{
     @Test
     public void textSearchTest(){
         // open the related file.
-        TextFile openedFile = TextFile.open(System.getProperty("user.home")+"\\Desktop\\TextFilesUsedWithTesting\\text.txt");
+        TextFile openedFile = TextFile.open(ENGLISH_TEXT_FILE_PATH);
         // checking the content after opening the file and before sorting the content.
         assertEquals(TEXT_TEST , openedFile.getContent());
         // looking for some words.
@@ -32,7 +32,7 @@ public class OpenSearchTest{
     @Test
     public void swedishSearchTest(){
         // open the related file.
-        TextFile openedFile = TextFile.open(System.getProperty("user.home")+"\\Desktop\\TextFilesUsedWithTesting\\text2.txt");
+        TextFile openedFile = TextFile.open(SWEDISH_TEXT_FILE_PATH);
         // checking the content after opening the file and before sorting the content.
         assertEquals(SWEDISH_TEST, openedFile.getContent());
         // looking for some words.
@@ -51,7 +51,7 @@ public class OpenSearchTest{
     @Test
     public void numberSearchTest(){
         // open the related file.
-        TextFile openedFile = TextFile.open(System.getProperty("user.home")+"\\Desktop\\TextFilesUsedWithTesting\\text3.txt");
+        TextFile openedFile = TextFile.open(NUMBER_TEXT_FILE_PATH);
         // checking the content after opening the file and before sorting the content.
         assertEquals(NUMBERS_TEST, openedFile.getContent());
         // looking for some numbers.
