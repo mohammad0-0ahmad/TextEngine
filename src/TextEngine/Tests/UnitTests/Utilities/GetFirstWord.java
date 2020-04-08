@@ -1,4 +1,4 @@
-package TextEngine.Tests.Utilities;
+package TextEngine.Tests.UnitTests.Utilities;
 
 import TextEngine.Utilities;
 import org.junit.jupiter.api.Test;

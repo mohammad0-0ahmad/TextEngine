@@ -1,4 +1,4 @@
-package TextEngine.Tests.TextFile;
+package TextEngine.Tests.UnitTests.TextFile;
 
 import TextEngine.TextFile;
 import org.junit.jupiter.api.Test;
@@ -13,7 +13,11 @@ public class Save {
      */
     @Test
     public void tryPassingInvalidPath(){
+        // This test will just work with windows that have a swedish language as interface language.
         assertEquals("Det går inte att hitta sökvägen", TextFile.save("Hello world!", "C:\\unexistFolder\\fileName.txt"));
+        // This test will just work with windows that have a english language as interface language.
+        //assertEquals("The system cannot find the path specified", TextFile.save("Hello world!", "C:\\unexistFolder\\fileName.txt"));
+
     }
     @Test
     /**

@@ -1,7 +1,5 @@
-package TextEngine.Tests.Sort;
+package TextEngine.Tests.UnitTests.Sort;
 import TextEngine.Sort;
-import TextEngine.TextEngine;
-import TextEngine.TextFile;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
@@ -34,7 +32,7 @@ class SortTest implements Sort{
         int high = arrayList.size()-1;
 
         //expected value is 9 since the index closest to the pivot is returned
-        assertEquals(9, partitioning(arrayList, 0, high));
+        assertEquals(8, partitioning(arrayList, 0, high));
 
         //expected value is the array-list but ordered
         quickSort(arrayList,0,high);

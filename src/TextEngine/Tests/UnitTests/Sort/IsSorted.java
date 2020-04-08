@@ -1,4 +1,4 @@
-package TextEngine.Tests.Sort;
+package TextEngine.Tests.UnitTests.Sort;
 
 import TextEngine.Sort;
 import org.junit.jupiter.api.Test;

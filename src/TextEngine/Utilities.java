@@ -8,52 +8,71 @@ public interface Utilities {
     int TAB = 9;
 
     /**
-     * Compare words to know which word in the arguments will take first place when ordering alphabetically. Ascii order is related in some cases.
+     * Compare words or numbers to know which one of the arguments will take first place (when ordering alphabetically in case the were words). Ascii order is related in some cases.
      * @param x the first word that will be used in comparision.
      * @param y the second word that will be used in comparision.
-     * @return flase if the y is before x "by alphabetic order" OR true if x if before or equals with y.
+     * @return flase if the y is before x "by alphabetic order in case were x and y words" OR true if x if before or equals with y.
      */
     default boolean isXBeforeY(String x, String y) {
+        // Trying convert strings to numbers and compare them.
+        try {
+            int xAsNumber = Integer.parseInt(x);
+            int yAsNumber = Integer.parseInt(y);
+            return xAsNumber <= yAsNumber;
+        }catch (Exception e){}
         // To avoid incorrect result when having uppercase letter. " To ignore ascii order"
+        try{
         x = x.toLowerCase();
         y = y.toLowerCase();
+        }catch (Exception e){}
         // if the x is before or x = y.
-        if (x.compareTo(y) <= 0) {
-            return true;
-        }
-        return false;
+        return (x.compareTo(y) <= 0);
     }
 
     // !!Following method may don't cover all punctuation!!
-    /** It removes some common punctuation that can exist at the start or end of a word.
+    /** It removes some common punctuation or other symbols that can exist at the start or end of a word except "-" at left side that can refer to negative numbers.
      * @param word word that need to be clean.
      * @return word without some common punctuation that can be exist on the edges.
      */
     default String removeSigns(String word) {
+        // Returning empty string in case word was empty.
+        if(word.length()==0){return "";}
+        // A string will be returned later.
         StringBuffer result = new StringBuffer(word);
-        // an array that hold ascii values for common punctuation. note 39 represent single quote mark.
-        int[] commonPunctuationToRemove = new int[]{(int) '.', (int) ',', (int) '!', (int) '?', (int) '"', (int) ':', (int) '-', (int) '_', (int) '(', (int) ')', (int) '[', (int) ']', (int) '{', (int) '}', (int) '/', (int) '*', (int) '&', (int) '+',BREAK_LINE,TAB,39};
-        // Cleaning the right side of the word.
-        for (int i = 0; i < commonPunctuationToRemove.length; i++) {
-            if (result.length() == 0) {
-                break;
+        // variables names explain the purpose.  couldBeNegativeNumber will be used to handle a string that is a negative number.
+        Boolean doneWithRightEdge = false, doneWithLeftSide = false ,couldBeNegativeNumber = false;
+        // Start cleaning.
+        while (!doneWithLeftSide || !doneWithRightEdge){
+            // Cleaning left edge.
+            if (!doneWithLeftSide) {
+                int firstLetterAscii = result.charAt(0);
+                // Check this link to understand what the followings numbers (Ascii values) means. http://www.asciitable.com/
+                // OBS! In the previous link the range between 128 and 165 doesn't work correctly with swedish letters. So this range is replaced with following values.
+                // 229 å , 197 Å , 228 ä , 196 Ä , 214 Ö , 246 ö
+                if (( (firstLetterAscii >= 48 && firstLetterAscii <= 57) || (firstLetterAscii >= 65 && firstLetterAscii <= 90) || (firstLetterAscii >= 97 && firstLetterAscii <= 122) ) || firstLetterAscii == 229  || firstLetterAscii==197 || firstLetterAscii==228 || firstLetterAscii==196 || firstLetterAscii==214 || firstLetterAscii==246) {
+                    doneWithLeftSide = true;
+                } else {
+                    // setting couldBeNegativeNumber as true in case the first letter is "-" and the next letter is a number.
+                    couldBeNegativeNumber = (firstLetterAscii == 45 && result.charAt(1) >= 48 && result.charAt(1) <= 57) ? true:false;
+                    // Removing first char.
+                    result.deleteCharAt(0);
+                }
             }
-            if ((int) result.charAt(result.length() - 1) == commonPunctuationToRemove[i]) {
-                result.deleteCharAt(result.length() - 1);
-                i = -1;
-                continue;
+            if(result.length()==0){break;}
+            // Cleaning right edge.
+            if (!doneWithRightEdge) {
+                int lastLetterAscii = result.charAt(result.length()-1);
+                if (( (lastLetterAscii >= 48 && lastLetterAscii <= 57) || (lastLetterAscii >= 65 && lastLetterAscii <= 90) || (lastLetterAscii >= 97 && lastLetterAscii <= 122) || (lastLetterAscii >= 128 && lastLetterAscii <= 165) )  || lastLetterAscii == 229  || lastLetterAscii==197 || lastLetterAscii==228 || lastLetterAscii==196 || lastLetterAscii==214 || lastLetterAscii==246) {
+                    doneWithRightEdge = true;
+                } else {
+                    // Removing last letter.
+                    result.deleteCharAt(result.length()-1);
+                }
             }
         }
-        // Cleaning the left side of the word.
-        for (int i = 0; i < commonPunctuationToRemove.length; i++) {
-            if (result.length() == 0) {
-                break;
-            }
-            if ((int) result.charAt(0) == commonPunctuationToRemove[i]) {
-                result.deleteCharAt(0);
-                i = -1;
-                continue;
-            }
+        // Adding a "-" in case the last removed letter was "-" to be able to keep negative numbers.
+        if (couldBeNegativeNumber){
+            return "-" + result.toString();
         }
         return result.toString();
     }

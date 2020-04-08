@@ -1,4 +1,4 @@
-package TextEngine.Tests.Utilities;
+package TextEngine.Tests.UnitTests.Utilities;
 
 import TextEngine.Utilities;
 import org.junit.jupiter.api.Test;
@@ -24,6 +24,17 @@ public class RemoveSigns implements Utilities {
         assertEquals("Hello",removeSigns(",Hello"));
         assertEquals("15",removeSigns("+15"));
         assertEquals("Hello",removeSigns(".*-/*/-*Hello"));
-        assertEquals("25",removeSigns("{-25}"));
+        // Be sure that will keep negative numbers.
+        assertEquals("-25",removeSigns("{-25}"));
+        // Checking that it will remove - at from the left edge in case the next character is a letter.
+        assertEquals("Hello",removeSigns("{-Hello}"));
+        // Checking swedish letters
+        assertEquals("öron",removeSigns("{-öron}"));
+        assertEquals("åka",removeSigns("{-åka}?"));
+        assertEquals("älven",removeSigns("{-älven}?"));
+        assertEquals("halvö",removeSigns("{-halvö}?"));
+
+
+
     }
 }

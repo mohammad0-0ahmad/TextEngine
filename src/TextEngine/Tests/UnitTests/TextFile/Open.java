@@ -1,4 +1,4 @@
-package TextEngine.Tests.TextFile;
+package TextEngine.Tests.UnitTests.TextFile;
 import org.junit.jupiter.api.*;
 import static TextEngine.TextFile.open;
 import static org.junit.jupiter.api.Assertions.assertNull;

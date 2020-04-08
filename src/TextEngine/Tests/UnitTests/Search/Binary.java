@@ -1,4 +1,4 @@
-package TextEngine.Tests.Search;
+package TextEngine.Tests.UnitTests.Search;
 
 import TextEngine.Search;
 import org.junit.jupiter.api.Test;
