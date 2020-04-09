@@ -33,8 +33,7 @@ public class RemoveSigns implements Utilities {
         assertEquals("åka",removeSigns("{-åka}?"));
         assertEquals("älven",removeSigns("{-älven}?"));
         assertEquals("halvö",removeSigns("{-halvö}?"));
-
-
-
+        // Testing sending a word that just have special signs in them.
+        assertEquals("",removeSigns(":=)"));
     }
 }

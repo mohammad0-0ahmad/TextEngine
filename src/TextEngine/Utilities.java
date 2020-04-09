@@ -42,7 +42,7 @@ public interface Utilities {
         // variables names explain the purpose.  couldBeNegativeNumber will be used to handle a string that is a negative number.
         Boolean doneWithRightEdge = false, doneWithLeftSide = false ,couldBeNegativeNumber = false;
         // Start cleaning.
-        while (!doneWithLeftSide || !doneWithRightEdge){
+        while ((!doneWithLeftSide || !doneWithRightEdge) && result.length()>0 ){
             // Cleaning left edge.
             if (!doneWithLeftSide) {
                 int firstLetterAscii = result.charAt(0);
