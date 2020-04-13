@@ -116,7 +116,7 @@ public class TextEngine implements Sort {
                     files.get(i).sortContent();
                 }
             }
-            System.out.println("Färdigt med sortering!!\nInnehållet är sorterat.");
+            System.out.println("Färdigt med sortering!!\nInnehållet är sorterat.\nSkriv ut innehållet för att se resultatet.");
         }else {
             System.err.println("Du har inte öppnat någon textfil än!!");
         }

@@ -147,14 +147,19 @@ public class TextFile implements Utilities,Sort,Search{
      *
      */
     public void sortContent() {
-        int lowestIndex = 0;
-        int highestIndex= content.size()-1;
         if (!this.sorted){
             for(int i= 0; i < content.size(); i++){
-                content.set(i,removeSigns(this.content.get(i)));
+                String wordWithoutSigns = removeSigns(this.content.get(i));
+                if (wordWithoutSigns.length()!=0){
+                    content.set(i,removeSigns(this.content.get(i)));
+                }else {
+                    content.remove(i);
+                }
             }
+            int lowestIndex = 0;
+            int highestIndex= content.size()-1;
             this.content = quickSort(this.content, lowestIndex, highestIndex);
-            sorted=true;
+            sorted = true;
         }
     }
 

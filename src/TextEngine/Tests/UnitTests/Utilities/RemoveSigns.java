@@ -26,6 +26,8 @@ public class RemoveSigns implements Utilities {
         assertEquals("Hello",removeSigns(".*-/*/-*Hello"));
         // Be sure that will keep negative numbers.
         assertEquals("-25",removeSigns("{-25}"));
+        assertEquals("-2",removeSigns("{-2}"));
+        assertEquals("",removeSigns("{-}"));
         // Checking that it will remove - at from the left edge in case the next character is a letter.
         assertEquals("Hello",removeSigns("{-Hello}"));
         // Checking swedish letters

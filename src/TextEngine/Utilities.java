@@ -53,7 +53,7 @@ public interface Utilities {
                     doneWithLeftSide = true;
                 } else {
                     // setting couldBeNegativeNumber as true in case the first letter is "-" and the next letter is a number.
-                    couldBeNegativeNumber = (firstLetterAscii == 45 && result.charAt(1) >= 48 && result.charAt(1) <= 57) ? true:false;
+                    couldBeNegativeNumber = (result.length()>1 && firstLetterAscii == 45 && result.charAt(1) >= 48 && result.charAt(1) <= 57) ? true:false;
                     // Removing first char.
                     result.deleteCharAt(0);
                 }
