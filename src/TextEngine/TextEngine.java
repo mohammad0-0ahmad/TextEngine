@@ -71,7 +71,7 @@ public class TextEngine implements Sort {
                     break;
                 //  To sort the content of all opened text files.
                 case "b":
-                    sortFilesContents();
+                    System.out.println(sortFilesContents());
                     break;
                 // To call the method that make a search inside all opened text files.
                 case "c":
@@ -98,27 +98,23 @@ public class TextEngine implements Sort {
     private void openFile() {
         System.out.println("Ange filväg som tillhör till den önskad textfilen du vill öppna:");
         TextFile temp = TextFile.open(new Scanner(System.in).nextLine());
-        if (temp != null) {
-            files.add(temp);
-            System.out.println("Det gick bra med att öppna och addera filen.");
-        } else {
-            System.err.println("!!Det gick tyvärr inte att öppna filen.!! \nSe till att filensformat är '.txt' och att filen finns redan.");
-        }
+        //
+        System.out.println(addFile(temp));
     }
 
     /**
      * If the file-arrays size is more than 0, loop through the size of the file. And if the file isn't already sorted, call the 'sortContent'-method
      */
-    private void sortFilesContents() {
+    public String sortFilesContents() {
         if (files.size() > 0) {
             for (int i = 0; i < files.size(); i++) {
                 if (!files.get(i).isSorted()) {
                     files.get(i).sortContent();
                 }
             }
-            System.out.println("Färdigt med sortering!!\nInnehållet är sorterat.\nSkriv ut innehållet för att se resultatet.");
+            return ("Färdigt med sortering!!\nInnehållet är sorterat.");
         }else {
-            System.err.println("Du har inte öppnat någon textfil än!!");
+            return ("Du har inte öppnat någon textfil än!!");
         }
     }
 
@@ -197,7 +193,7 @@ public class TextEngine implements Sort {
      *
      * @return a string that hold the contents of all opened text files that stores inside {@link #files}.
      */
-    private String getContents() {
+    public String getContents() {
         // In case the user have not opened a text file yet.
         if (files.size() == 0) {
             return "Du har inte öppnat någon textfil än!!";
@@ -266,5 +262,16 @@ public class TextEngine implements Sort {
             }
         }
     }
-
+    //
+    /**
+     *
+     */
+    public String addFile(TextFile file){
+        if (file != null) {
+            files.add(file);
+            return ("Det gick bra med att öppna och addera filen.");
+        } else {
+            return ("!!Det gick tyvärr inte att öppna filen.!! \nSe till att filensformat är '.txt' och att filen finns redan.");
+        }
+    }
 }
