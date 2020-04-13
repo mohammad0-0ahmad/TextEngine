@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TextEngine.Controller">
+    <top>
+        <VBox prefHeight="0.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+            <children>
+            <MenuBar>
+              <menus>
+                <Menu mnemonicParsing="false" text="Fil">
+                  <items>
+                    <MenuItem fx:id="open" mnemonicParsing="false" onAction="#openFile" text="Öppna" />
+                      <MenuItem fx:id="save" mnemonicParsing="false" onAction="#saveContents" text="Spara" />
+                  </items>
+                </Menu>
+                <Menu fx:id="sort" mnemonicParsing="false" onAction="#sortContents" text="" />
+                <Menu fx:id="search" mnemonicParsing="false" onAction="#searchInContents" onShowing="#searchInContents" text="" />
+              </menus>
+            </MenuBar>
+            </children>
+        </VBox>
+    </top>
+    <center>
+        <ScrollPane focusTraversable="false" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <content>
+                <Text focusTraversable="false" fx:id="content" text="" />
+            </content></ScrollPane>
+    </center>
+</BorderPane>

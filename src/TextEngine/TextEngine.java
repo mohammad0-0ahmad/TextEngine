@@ -66,7 +66,7 @@ public class TextEngine implements Sort {
                     break;
                 //  To sort the content of all opened text files.
                 case "b":
-                    sortFilesContents();
+                    System.out.println(sortFilesContents());
                     break;
                 // To call the method that make a search inside all opened text files.
                 case "c":
@@ -93,27 +93,23 @@ public class TextEngine implements Sort {
     private void openFile() {
         System.out.println(USER_MESSAGE.ASKING_TO_ENTER_FILE_PATH );
         TextFile temp = TextFile.open(new Scanner(System.in).nextLine());
-        if (temp != null) {
-            files.add(temp);
-            System.out.println(USER_MESSAGE.FILE_HAS_BEEN_OPENED_SUCCESSFULLY);
-        } else {
-            System.out.println(USER_MESSAGE.COULD_NOT_OPEN_FILE);
-        }
+        //
+        System.out.println(addFile(temp));
     }
 
     /**
      * If the file-arrays size is more than 0, loop through the size of the file. And if the file isn't already sorted, call the 'sortContent'-method
      */
-    private void sortFilesContents() {
+    public String sortFilesContents() {
         if (files.size() > 0) {
             for (TextFile file : files) {
                 if (!file.isSorted()) {
                     file.sortContent();
                 }
             }
-            System.out.println(USER_MESSAGE.TEXT_FILES_ARE_SORTED);
+            return(USER_MESSAGE.TEXT_FILES_ARE_SORTED);
         }else {
-            System.out.println(USER_MESSAGE.NO_TEXT_FILE_IS_OPENED);
+            return(USER_MESSAGE.NO_TEXT_FILE_IS_OPENED);
         }
     }
 
@@ -191,7 +187,7 @@ public class TextEngine implements Sort {
      *
      * @return a string that hold the contents of all opened text files that stores inside {@link #files}.
      */
-    private String getContents() {
+    public String getContents() {
         // In case the user has not opened a text file yet.
         if (files.size() == 0) {
             return USER_MESSAGE.NO_TEXT_FILE_IS_OPENED;
@@ -258,6 +254,19 @@ public class TextEngine implements Sort {
             }
         }
     }
+    //
+    /**
+     *
+     */
+    public String addFile(TextFile file){
+        if (file != null) {
+            files.add(file);
+            return ("Det gick bra med att öppna och addera filen.");
+        } else {
+            return ("!!Det gick tyvärr inte att öppna filen.!! \nSe till att filensformat är '.txt' och att filen finns redan.");
+        }
+    }
+
     /**
      * It includes some messages that will be shown for the user.
      */
