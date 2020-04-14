@@ -3,7 +3,7 @@ package textEngine.Tests.UnitTests.Sort;
 import textEngine.Sort;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Test class that checks insertion method.
