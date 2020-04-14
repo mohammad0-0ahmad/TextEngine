@@ -1,6 +1,6 @@
-package TextEngine.Tests.UnitTests.Utilities;
+package textEngine.Tests.UnitTests.Utilities;
 
-import TextEngine.Utilities;
+import textEngine.Utilities;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -8,11 +8,10 @@ import static org.junit.jupiter.api.Assertions.*;
  * {@link Utilities#removeSigns(String)}test class.
  */
 public class RemoveSigns implements Utilities {
-
-    @Test
     /**
      * test if removeSigns work without any problem with some possible input cases.
      */
+    @Test
    public void isItRemoveSignsCorrectly(){
         // checking the right side of the passed value.
        assertEquals("Hello",removeSigns("Hello."));

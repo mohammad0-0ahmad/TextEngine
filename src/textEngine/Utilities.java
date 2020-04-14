@@ -1,7 +1,8 @@
-package TextEngine;
+package textEngine;
 
-import java.lang.reflect.Array;
-
+/**
+ * It includes all method that are such as a utility.
+ */
 public interface Utilities {
     // The following variables represent its names with another word (" ","\t","\n") and holds the ascii values that are related to them.
     int BREAK_LINE = 10;
@@ -19,12 +20,12 @@ public interface Utilities {
             int xAsNumber = Integer.parseInt(x);
             int yAsNumber = Integer.parseInt(y);
             return xAsNumber <= yAsNumber;
-        }catch (Exception e){}
+        }catch (Exception ignored){}
         // To avoid incorrect result when having uppercase letter. " To ignore ascii order"
         try{
-        x = x.toLowerCase();
-        y = y.toLowerCase();
-        }catch (Exception e){}
+            x = x.toLowerCase();
+            y = y.toLowerCase();
+        }catch (Exception ignored){}
         // if the x is before or x = y.
         return (x.compareTo(y) <= 0);
     }
@@ -40,7 +41,7 @@ public interface Utilities {
         // A string will be returned later.
         StringBuffer result = new StringBuffer(word);
         // variables names explain the purpose.  couldBeNegativeNumber will be used to handle a string that is a negative number.
-        Boolean doneWithRightEdge = false, doneWithLeftSide = false ,couldBeNegativeNumber = false;
+        boolean doneWithRightEdge = false, doneWithLeftSide = false ,couldBeNegativeNumber = false;
         // Start cleaning.
         while ((!doneWithLeftSide || !doneWithRightEdge) && result.length()>0 ){
             // Cleaning left edge.
@@ -53,7 +54,7 @@ public interface Utilities {
                     doneWithLeftSide = true;
                 } else {
                     // setting couldBeNegativeNumber as true in case the first letter is "-" and the next letter is a number.
-                    couldBeNegativeNumber = (result.length()>1 && firstLetterAscii == 45 && result.charAt(1) >= 48 && result.charAt(1) <= 57) ? true:false;
+                    couldBeNegativeNumber = result.length() > 1 && firstLetterAscii == 45 && result.charAt(1) >= 48 && result.charAt(1) <= 57;
                     // Removing first char.
                     result.deleteCharAt(0);
                 }
@@ -80,15 +81,15 @@ public interface Utilities {
     /**
      * It used to get the first word if a text.
      *
-     * @param text is a String buffer that have text.
-     * @return a string array that have first word at first place and rest in the second place OR empty Strings if text parameter is equals to null or if it is empty.
+     * @param text is a String buffer that store a text.
+     * @return a string array that store first word at first place and rest in the second place OR empty Strings if text parameter is equals to null or if it is empty.
      */
     default String[] getFirstWord(StringBuffer text) {
         text.replace(0,text.length(),text.toString().replaceAll("\r\n","\n"));
         // Array that will be returned.
         String[] toReturn = new String[2];
         // hold index that help with getting first word. ((The right edge of the word))
-        int pointer = 0;
+        int pointer;
         // Get index of first whitespace.
         int firstWhiteSpaceIndex = text.indexOf(" ");
         // Get index of first breakLine.
@@ -111,17 +112,17 @@ public interface Utilities {
         if (pointer == -1){
             pointer = text.length();
         }
-            // In this case first word will be token and removed of the text.
-            if (pointer > 0) {
-                if(pointer != text.length() && text.charAt(pointer) == '\n'){
-                    pointer++;
-                }
-                toReturn[0] = text.substring(0, pointer);
-                toReturn[1] = text.substring(pointer);
-            }else{
-                // will return empty strings if the text is empty.
-                return new String[]{"", ""};
+        // In this case first word will be token and removed of the text.
+        if (pointer > 0) {
+            if(pointer != text.length() && text.charAt(pointer) == '\n'){
+                pointer++;
             }
+            toReturn[0] = text.substring(0, pointer);
+            toReturn[1] = text.substring(pointer);
+        }else{
+            // will return empty strings if the text is empty.
+            return new String[]{"", ""};
+        }
         return toReturn;
     }
 }

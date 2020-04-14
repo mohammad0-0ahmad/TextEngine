@@ -1,6 +1,6 @@
-package TextEngine.Tests.UnitTests.Search;
+package textEngine.Tests.UnitTests.Search;
 
-import TextEngine.Search;
+import textEngine.Search;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
@@ -10,12 +10,12 @@ import static org.junit.jupiter.api.Assertions.*;
  * link to the method {@link Search#linear(String, ArrayList)} .
  */
 public class Linear implements Search {
-    @Test
     /**
      * Test checks if the method return correct values by passing different values.
      */
+    @Test
     public void checkIfItWorkCorrectly(){
-        ArrayList <String> test = new ArrayList<String>();
+        ArrayList <String> test = new ArrayList<>();
         test.add("hello1");
         test.add("hello2");
         test.add("hello3");
@@ -30,7 +30,7 @@ public class Linear implements Search {
         // the word should be same the word in the array list.
         assertEquals(0,linear("hello4,",test));
         // when passing array list that is empty.
-        test = new ArrayList<String>();
+        test = new ArrayList<>();
         assertEquals(-1,linear("hello4,",test));
         // when passing array list that is null.
         test = null;

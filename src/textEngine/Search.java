@@ -1,11 +1,14 @@
-package TextEngine;
+package textEngine;
 
 import java.util.ArrayList;
 
+/**
+ * It includes all methods related to search.
+ */
 public interface Search extends Utilities {
     /**
-     * It executes a binary searching on a sorted method.
-     * It executes even type of linear searching after finding a word that match word variable value to be able to find amount of words that match it. "not on the entire content but until the checked word is not equals to word parameter value."
+     * It executes a binary search on a sorted method.
+     * It executes even type of linear search after finding a word that match word variable value to be able to find amount of words that match it. "not on the entire content but until the checked word is not equals to word parameter value."
      * @param word a word that method looks for.
      * @param arrayUsedInSearch an string array list that could store the word.
      * @return -2 if array list is null OR -1 if it is empty OR 0 if the word is not exist OR larger number that refer to amount of words that is equals with the passed word.
@@ -17,7 +20,7 @@ public interface Search extends Utilities {
         }else if (arrayUsedInSearch.size() == 0){ //In case arrayUsedInSearch is empty.
             return -1;
         }
-        // Arranging the range that will be focused during searching.
+        // Arranging the range that will be focused during search.
         int first = 0;
         int last = arrayUsedInSearch.size()-1;
         int middle = (first + last)/2;
@@ -52,7 +55,7 @@ public interface Search extends Utilities {
     }
 
     /**
-     * It execute a linear searching on a arrayList.
+     * It execute a linear search on a arrayList.
      * @param word a word that method looks for.
      * @param arrayUsedInSearch an string array list that could store the word.
      * @return -2 if array list is null OR -1 if it is empty OR 0 if the word is not exist OR larger number that refer to amount of words that is equals with the passed word.
@@ -66,8 +69,8 @@ public interface Search extends Utilities {
         }
         // start counting.
         int found = 0;
-        for (int i = 0; i < arrayUsedInSearch.size();i++){
-            if (arrayUsedInSearch.get(i).equals(word)){
+        for (String usedInSearch : arrayUsedInSearch) {
+            if (usedInSearch.equals(word)) {
                 found++;
             }
         }

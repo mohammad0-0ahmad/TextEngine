@@ -1,5 +1,5 @@
-package TextEngine.Tests.UnitTests.Sort;
-import TextEngine.Sort;
+package textEngine.Tests.UnitTests.Sort;
+import textEngine.Sort;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
@@ -8,11 +8,11 @@ import static org.junit.jupiter.api.Assertions.*;
  * Test to see if values are sorted correctly
  */
 class SortTest implements Sort{
-    @Test
     /**
      * Tests if the 'partitioning'-method returns the last index closes to the 'pivot' correctly
      * also checks if the elements are sorted correctly
      */
+    @Test
     void TestIfItSorts() {
         ArrayList<String> arrayList = new ArrayList<>();
         arrayList.add("Daniel");

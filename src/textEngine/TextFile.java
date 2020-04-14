@@ -1,10 +1,13 @@
-package TextEngine;
+package textEngine;
 
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
+/**
+ * It represents a text file.
+ */
 public class TextFile implements Utilities,Sort,Search{
     /*> Member variables <*/
 
@@ -15,7 +18,7 @@ public class TextFile implements Utilities,Sort,Search{
     /**
      * Hold the name of the text file.
      */
-    private String name;
+    private final String name;
     /**
      * Array list that holds all words "every letter or number between tow whitespaces" which is found inside the text file.
      */
@@ -132,10 +135,10 @@ public class TextFile implements Utilities,Sort,Search{
                 if (i != this.content.size()-1 && (i+1)%10 !=0){
                     content.append(" ");
                 }else
-                // To add break line after every 10 words.
-                if ((i+1)%10 ==0){
-                    content.append("\n");
-                }
+                    // To add break line after every 10 words.
+                    if ((i+1)%10 ==0){
+                        content.append("\n");
+                    }
             }
         }
         return content.toString();
@@ -154,6 +157,7 @@ public class TextFile implements Utilities,Sort,Search{
                     content.set(i,removeSigns(this.content.get(i)));
                 }else {
                     content.remove(i);
+                    i--;
                 }
             }
             int lowestIndex = 0;

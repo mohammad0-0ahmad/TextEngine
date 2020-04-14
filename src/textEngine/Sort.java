@@ -1,7 +1,9 @@
-package TextEngine;
-
+package textEngine;
 import java.util.ArrayList;
 
+/**
+ * It includes all methods related to sorting.
+ */
 public interface Sort extends Utilities {
     /**
      * Method to take the last element as a 'pivot' and sets that pivot in its correct position
@@ -16,17 +18,17 @@ public interface Sort extends Utilities {
         String temp;
         String pivot = text.get(high); // Getting the last string in the array
         int i = (low - 1);
-            for (int j = low; j < high; j++) {
-                if (isXBeforeY(text.get(j), pivot)) {
-                    i++;
-                    temp = text.get(i);
-                    text.set(i, text.get(j));
-                    text.set(j, temp); //set the element at 'j' to to the element at 'i'
-                }
+        for (int j = low; j < high; j++) {
+            if (isXBeforeY(text.get(j), pivot)) {
+                i++;
+                temp = text.get(i);
+                text.set(i, text.get(j));
+                text.set(j, temp); //set the element at 'j' to to the element at 'i'
             }
-            temp = text.get(i + 1);
-            text.set(i + 1, text.get(high));
-            text.set(high, temp); //set the index of 'high' to the value of the last index before the pivot
+        }
+        temp = text.get(i + 1);
+        text.set(i + 1, text.get(high));
+        text.set(high, temp); //set the index of 'high' to the value of the last index before the pivot
         return i + 1; //return the last value before the pivot
     }
     /**
@@ -76,7 +78,7 @@ public interface Sort extends Utilities {
             int tempIndex = index;
             int[] tempItem = matrix[index];
             while (tempIndex > 0 && tempItem[1] < matrix[tempIndex-1][1]){
-                // Replace the larger item that have smaller index.
+                // Replace the larger item that has smaller index.
                 matrix[tempIndex] = matrix[tempIndex-1];
                 // Rearrange the temp index.
                 tempIndex--;

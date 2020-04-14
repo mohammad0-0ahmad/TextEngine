@@ -1,10 +1,10 @@
-package TextEngine.Tests.UnitTests.TextFile;
+package textEngine.Tests.UnitTests.TextFile;
 import org.junit.jupiter.api.*;
-import static TextEngine.TextFile.open;
+import static textEngine.TextFile.open;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 /**
- * Test class that tests {@link TextEngine.TextFile#open(String)} method.
+ * Test class that tests {@link textEngine.TextFile#open(String)} method.
  */
 class Open {
     /**
@@ -14,7 +14,7 @@ class Open {
     void openUnExistFiles(){
         try {
             assertNull(open("C:\\Users\\95jassod\\Desktop\\test.txt"));
-        }catch (Exception e){}
+        }catch (Exception ignored){}
 
     }
 
@@ -27,7 +27,7 @@ class Open {
             assertNull(open("C:\\Users\\95jassod\\Desktop\\test.png"));
             assertNull(open("C:\\Users\\95jassod\\Desktop\\test.pdf"));
             assertNull(open("C:\\Users\\95jassod\\Desktop\\test.text"));
-        }catch (Exception e){}
+        }catch (Exception ignored){}
     }
 
 }

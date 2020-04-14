@@ -1,6 +1,6 @@
-package TextEngine.Tests.UnitTests.Utilities;
+package textEngine.Tests.UnitTests.Utilities;
 
-import TextEngine.Utilities;
+import textEngine.Utilities;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -8,12 +8,12 @@ import static org.junit.jupiter.api.Assertions.*;
  * {@link Utilities#getFirstWord(StringBuffer)} test class.
  */
 public class GetFirstWord implements Utilities {
-    @Test
     /**
      * Checks the method with different cases of parameters.
      */
+    @Test
     public void isItReturnFirstWord(){
-        StringBuffer test = new StringBuffer("");
+        StringBuffer test = new StringBuffer();
         getFirstWord(test);
         assertEquals("",getFirstWord(test)[0]);
         // Testing if it returns first word.

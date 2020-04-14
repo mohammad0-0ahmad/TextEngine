@@ -1,9 +1,9 @@
-package TextEngine.Tests.SystemTests;
+package textEngine.Tests.SystemTests;
 
-import TextEngine.TextFile;
+import textEngine.TextFile;
 import org.junit.jupiter.api.Test;
 
-import static TextEngine.Tests.VariablesUsedDuringTests.*;
+import static textEngine.Tests.VariablesUsedDuringTests.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**

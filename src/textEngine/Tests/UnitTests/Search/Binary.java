@@ -1,6 +1,6 @@
-package TextEngine.Tests.UnitTests.Search;
+package textEngine.Tests.UnitTests.Search;
 
-import TextEngine.Search;
+import textEngine.Search;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

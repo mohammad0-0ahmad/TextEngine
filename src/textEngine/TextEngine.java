@@ -1,15 +1,17 @@
-package TextEngine;
+package textEngine;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
-
+/**
+ * It represents an object that can handle text files.
+ */
 public class TextEngine implements Sort {
     /* Class variable */
     /**
      * The only instance of TextEngine object.
      */
-    private static TextEngine instance = new TextEngine();
+    private final static TextEngine instance = new TextEngine();
 
     ////////////////////////////////////////////////////
     /*> Member variables <*/
@@ -17,7 +19,7 @@ public class TextEngine implements Sort {
     /**
      * Array list that hold all opened file during runtime.
      */
-    private ArrayList<TextFile> files;
+    private final ArrayList<TextFile> files;
 
     ////////////////////////////////////////////////////
     /*>> Constructor <<*/
@@ -26,15 +28,15 @@ public class TextEngine implements Sort {
      * The constructor of TextEngine class.
      */
     private TextEngine() {
-        this.files = new ArrayList<TextFile>();
+        this.files = new ArrayList<>();
     }
 
     ////////////////////////////////////////////////////
     /*>>> Static methods <<<*/
 
     /**
-     * It returns the only TextEngine object. "singleton"
-     * @return
+     * It returns the TextEngine object.
+     * @return The instance of TextEngine Type. "Singleton"
      */
     public static TextEngine getInstance() {
         return instance;
@@ -47,18 +49,11 @@ public class TextEngine implements Sort {
      * It's a user interface in console that helps to select and execute a specific operation.
      */
     public void start() {
-        System.out.print("\t\t>> Hej och välkommen till våran text motor. <<");
+        System.out.print(USER_MESSAGE.GREETING);
         Scanner userInput = new Scanner(System.in);
         String userSelection = "0";
         while (!userSelection.equals("e")) {
-            System.out.println("" +
-                    "\n\t(o) Öppna en ny fil och addera innehållet." +
-                    "\n\t(a) Skriva ut innehållet på alla öppnades filer." +
-                    "\n\t(b) Sortera de samtliga befintliga filerna. OBS! Onödiga tecken försvinner efter sortering." +
-                    "\n\t(c) Leta efter ett ord." +
-                    "\n\t(d) Spara aktuella resultat i en externa text fil." +
-                    "\n\t(e) Avsluta Programmet." +
-                    "\n\t\tInmata ditt val:");
+            System.out.println(USER_MESSAGE.CONSOLE_MENU);
             userSelection = userInput.nextLine();
             switch (userSelection) {
                 // To open a text file and add it to files member variable.
@@ -83,11 +78,11 @@ public class TextEngine implements Sort {
                     break;
                 // To exit the application.
                 case "e":
-                    System.out.println("Hejdå och välkommen åter!!");
+                    System.out.println(USER_MESSAGE.GOOD_BYE);
                     break;
                 // Printing an error message when user enter false options that is not exist in the main menu.
                 default:
-                    System.err.println("!!Ogiltigt val!! Välja gärna en giltig alternativ av lisatn nedan.");
+                    System.err.println(USER_MESSAGE.INVALID_SELECTION);
             }
         }
     }
@@ -96,13 +91,13 @@ public class TextEngine implements Sort {
      * It's like a wizard that helps the user with opening a text file and add it to {@link #files} member variable..
      */
     private void openFile() {
-        System.out.println("Ange filväg som tillhör till den önskad textfilen du vill öppna:");
+        System.out.println(USER_MESSAGE.ASKING_TO_ENTER_FILE_PATH );
         TextFile temp = TextFile.open(new Scanner(System.in).nextLine());
         if (temp != null) {
             files.add(temp);
-            System.out.println("Det gick bra med att öppna och addera filen.");
+            System.out.println(USER_MESSAGE.FILE_HAS_BEEN_OPENED_SUCCESSFULLY);
         } else {
-            System.err.println("!!Det gick tyvärr inte att öppna filen.!! \nSe till att filensformat är '.txt' och att filen finns redan.");
+            System.err.println(USER_MESSAGE.COULD_NOT_OPEN_FILE);
         }
     }
 
@@ -111,14 +106,14 @@ public class TextEngine implements Sort {
      */
     private void sortFilesContents() {
         if (files.size() > 0) {
-            for (int i = 0; i < files.size(); i++) {
-                if (!files.get(i).isSorted()) {
-                    files.get(i).sortContent();
+            for (TextFile file : files) {
+                if (!file.isSorted()) {
+                    file.sortContent();
                 }
             }
-            System.out.println("Färdigt med sortering!!\nInnehållet är sorterat.\nSkriv ut innehållet för att se resultatet.");
+            System.out.println(USER_MESSAGE.TEXT_FILES_ARE_SORTED);
         }else {
-            System.err.println("Du har inte öppnat någon textfil än!!");
+            System.err.println(USER_MESSAGE.NO_TEXT_FILE_IS_OPENED);
         }
     }
 
@@ -129,24 +124,23 @@ public class TextEngine implements Sort {
         if (files.size() > 0) {
             boolean filesContentsIsSorted = true, userDecision = false;
             // Checking if every opened text file content is sorted be checking sorted member value.
-            for (int i = 0; i < files.size(); i++) {
-                if (!files.get(i).isSorted()) {
+            for (TextFile file : files) {
+                if (!file.isSorted()) {
                     filesContentsIsSorted = false;
                     break;
                 }
             }
             // Let the user decide whether or not want to execute the searching in case contents is not sorted.
             if (!filesContentsIsSorted) {
-                System.out.println("Jag rekomenderar att exekvera sökning på sorterad text för att få noggrannt resultat så sortera gärna texter först!!");
-                System.out.println("Annars Jag kan fortfarande exekvera en sökning.\n Vill du fortsätta ändå? \n (y) ja, det vill jag. \n (Annars) Visa huvudmenyn.");
+                System.out.println(USER_MESSAGE.RECOMMENDATION_TO_SORT_FILES_BEFORE_SEARCHING);
                 if (new Scanner(System.in).nextLine().equals("y")) {
-                    System.out.println("!! Notera att vissa tecken kan räknas som en bokstav av ordet i fall fanns inte mellanslag mellan dem.\n\t\tExemplvis: (. , : ! ? ) osv");
+                    System.out.println(USER_MESSAGE.WARNING_ABOUT_SIGNS);
                     userDecision = true;
                 }
             }
             // Start searching.
             if (filesContentsIsSorted || userDecision) {
-                System.out.println("Inmata gärna ordet du vill leta efter:");
+                System.out.println("!!Notera att sökningen är case-sensitive!!\nInmata gärna ordet du vill leta efter:");
                 // Word will be entered by user.
                 String wordToLookFor = new Scanner(System.in).nextLine();
                 // array that will hold the search result.
@@ -161,7 +155,7 @@ public class TextEngine implements Sort {
                 System.out.println(sortSearchResult(searchResult));
             }
         } else {
-            System.err.println("Du har inte öppnat någon textfil än!!");
+            System.err.println(USER_MESSAGE.NO_TEXT_FILE_IS_OPENED);
         }
     }
 
@@ -172,7 +166,7 @@ public class TextEngine implements Sort {
      * @return a text that is readable by the user.
      */
     private String sortSearchResult(int[][] result) {
-        StringBuffer resultText = new StringBuffer("");
+        StringBuffer resultText = new StringBuffer();
         //Sorting the result
         result = insertion(result);
         // Creating the text that show the result.
@@ -187,7 +181,7 @@ public class TextEngine implements Sort {
             }                  //no need to continue because the result array is sorted.
         }
         if (resultText.toString().equals("")) {
-            return "\t\t!!Ingen textfil innehåller sökordet!!";
+            return USER_MESSAGE.NO_FILE_INCLUDE_SEARCH_KEYWORD;
         }
         return resultText.toString();
     }
@@ -198,14 +192,14 @@ public class TextEngine implements Sort {
      * @return a string that hold the contents of all opened text files that stores inside {@link #files}.
      */
     private String getContents() {
-        // In case the user have not opened a text file yet.
+        // In case the user has not opened a text file yet.
         if (files.size() == 0) {
-            return "Du har inte öppnat någon textfil än!!";
+            return USER_MESSAGE.NO_TEXT_FILE_IS_OPENED;
         } else {
             // Prepare the result that will be show to the user later.
-            StringBuffer resultToPrint = new StringBuffer("");
-            for (int i = 0; i < files.size(); i++) {
-                resultToPrint.append("Filnamn: " + files.get(i).getName() + "\n>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<\n" + files.get(i).getContent() + "\n________________________________________\n");
+            StringBuffer resultToPrint = new StringBuffer();
+            for (TextFile file : files) {
+                resultToPrint.append("Filnamn: " + file.getName() + "\n>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<\n" + file.getContent() + "\n________________________________________\n");
             }
             return resultToPrint.toString();
         }
@@ -215,26 +209,26 @@ public class TextEngine implements Sort {
      * It's like a wizard that helps the user with saving the contents of the opened files {@link #files}.
      */
     private void saveFilesContents() {
-        // Checking if the user have opened a text file.
+        // Checking if the user has opened a text file.
         if (files.size() == 0) {
-            System.out.println("Du har inte öppnat någon textfil än!!");
+            System.out.println(USER_MESSAGE.NO_TEXT_FILE_IS_OPENED);
         } else {
-            System.out.println("OBS! Filen kommer att lagras i skrivbordet ifall det lyckades.");
+            System.out.println(USER_MESSAGE.FILE_WILL_BE_SAVED_ON_DESKTOP);
             // Text file will be stored always in desktop "windows os"
             String desktopPath = System.getProperty("user.home") + "\\Desktop\\";
             StringBuffer fileName = new StringBuffer();
-            Boolean readyToSave = false;
+            boolean readyToSave = false;
             // Force the user to enter file name.
             while (fileName.length() == 0) {
-                System.out.println("Inmata ett namn på filen du vill spara!");
+                System.out.println(USER_MESSAGE.ASKING_TO_ENTER_FILE_NAME_THAT_WILL_BE_SAVED);
                 // store the name
                 fileName.replace(0, fileName.length(), new Scanner(System.in).nextLine());
                 if (fileName.length() == 0) {
-                    System.err.println("Du måste ange ett namn!");
+                    System.err.println(USER_MESSAGE.MUST_ENTER_A_NAME);
                 }
             }
 
-            // Checking if the file name have " .txt " at the end and added it in case it wasn't exist.
+            // Checking if the file name has " .txt " at the end and added it in case it wasn't exist.
             if (fileName.length() > 4) {
                 if (!fileName.substring(fileName.length() - 4).equals(".txt")) {
                     fileName.append(".txt");
@@ -242,29 +236,75 @@ public class TextEngine implements Sort {
             } else {
                 fileName.append(".txt");
             }
-            // Checking if the file is already exist and make user decide in case it is exist.
+            // Checking if the file already exist and let the user decide to overwrite the file or not.
             boolean fileIsAlreadyExist = new File(desktopPath + fileName).exists();
             if (!fileIsAlreadyExist) {
                 readyToSave = true;
             } else {
-                System.out.println("Filen finns redan.\nVill du byta den aktuella filen?\n(y) Ja, det vill jag.\n (Annars) Visa huvudmenyn.");
+                System.out.println(USER_MESSAGE.FILE_ALREADY_EXIST);
                 if (new Scanner(System.in).nextLine().equals("y")) {
                     readyToSave = true;
                 }
             }
             // Calling the method that will save the file.
             if (readyToSave) {
-                StringBuffer saveContent = new StringBuffer("");
-                files.forEach((file) -> {
-                    saveContent.append(file.getContent() + "\n\n");
-                });
+                StringBuffer saveContent = new StringBuffer();
+                files.forEach((file) -> saveContent.append(file.getContent() + "\n\n"));
                 // Storing a message will be shown for the user.
                 String msg = TextFile.save(saveContent.toString(),desktopPath + fileName.toString());
                 System.out.println(msg);
             } else {
-                System.err.println("!! Text filen har inte sparat. !!");
+                System.err.println(USER_MESSAGE.FILE_HAS_NOT_BEEN_SAVED);
             }
         }
     }
+    /**
+     * It includes some messages that will be shown for the user.
+     */
+    public abstract static class USER_MESSAGE{
+        // Console menu.
+        private final static String CONSOLE_MENU =
+                "\n\t(o) Öppna en ny fil och addera innehållet." +
+                "\n\t(a) Skriva ut innehållet på alla öppnades filer." +
+                "\n\t(b) Sortera de samtliga befintliga filerna. OBS! Onödiga tecken försvinner efter sortering." +
+                "\n\t(c) Leta efter ett angivet ord." +
+                "\n\t(d) Spara aktuella resultat i en externa text fil." +
+                "\n\t(e) Avsluta Programmet." +
+                "\n\t\tInmata ditt val:";
 
+        /*Used inside start()*/
+        public final static String GREETING = "\t\t>> Hej och välkommen till vår text-motor. <<";
+
+        private final static String INVALID_SELECTION = "!!Ogiltigt val!! Välja gärna en giltig alternativ av lisatn nedan.";
+
+        public final static String GOOD_BYE = "Hejdå och välkommen åter!!";
+
+        /*Used inside openFile()*/
+        private final static String ASKING_TO_ENTER_FILE_PATH = "Ange filväg som tillhör den önskad textfilen du vill öppna:";
+
+        private final static String FILE_HAS_BEEN_OPENED_SUCCESSFULLY = "Det gick bra att öppna och addera filen.";
+
+        private final static String COULD_NOT_OPEN_FILE = "!!Det gick tyvärr inte att öppna filen.!! \nSe till att filens format är '.txt' och att filen redan finns.";
+
+        /*Used inside sortFilesContents()*/
+        private final static String TEXT_FILES_ARE_SORTED = "Innehållet är sorterat.\nSkriv ut innehållet för att se resultatet.";
+
+        public final static String NO_TEXT_FILE_IS_OPENED = "Du har inte öppnat någon textfil ännu!!";
+        /*Used inside searchInFiles()*/
+        private final static String RECOMMENDATION_TO_SORT_FILES_BEFORE_SEARCHING = "Jag rekomenderar att exekvera sökning på sorterad text för att få ett noggrannare resultat så sortera gärna texter först!!\nAnnars Jag kan fortfarande exekvera en sökning.\n Vill du fortsätta ändå? \n (y) ja, det vill jag. \n (Annars) Visa huvudmenyn.";
+
+        private final static String WARNING_ABOUT_SIGNS = "!! Notera att vissa tecken kan räknas som en bokstav av ordet ifall det inte fanns ett mellanslag mellan dem.\n\t\tExemplvis: (. , : ! ? ) osv";
+
+        private final static String NO_FILE_INCLUDE_SEARCH_KEYWORD = "\t\t!!Ingen textfil innehåller sökordet!!";
+        /*Used inside saveFilesContents()*/
+        private final static String FILE_WILL_BE_SAVED_ON_DESKTOP = "OBS! Filen kommer att lagras i skrivbordet ifall det lyckades.";
+
+        private final static String ASKING_TO_ENTER_FILE_NAME_THAT_WILL_BE_SAVED = "Inmata ett namn på filen du vill spara!";
+
+        private final static String MUST_ENTER_A_NAME = "Du måste ange ett namn!";
+
+        private final static String FILE_ALREADY_EXIST = "Filen finns redan.\nVill du byta den aktuella filen?\n(y) Ja, det vill jag.\n (Annars) Visa huvudmenyn.";
+
+        private final static String FILE_HAS_NOT_BEEN_SAVED = "!! Textfilen har inte sparats. !!";
+    }
 }

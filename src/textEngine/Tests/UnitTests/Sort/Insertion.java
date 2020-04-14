@@ -1,6 +1,6 @@
-package TextEngine.Tests.UnitTests.Sort;
+package textEngine.Tests.UnitTests.Sort;
 
-import TextEngine.Sort;
+import textEngine.Sort;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
