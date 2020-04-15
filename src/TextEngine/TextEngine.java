@@ -82,7 +82,7 @@ public class TextEngine implements Sort {
                     break;
                 // Printing an error message when user enter false options that is not exist in the main menu.
                 default:
-                    System.err.println(USER_MESSAGE.INVALID_SELECTION);
+                    System.out.println(USER_MESSAGE.INVALID_SELECTION);
             }
         }
     }
@@ -97,7 +97,7 @@ public class TextEngine implements Sort {
             files.add(temp);
             System.out.println(USER_MESSAGE.FILE_HAS_BEEN_OPENED_SUCCESSFULLY);
         } else {
-            System.err.println(USER_MESSAGE.COULD_NOT_OPEN_FILE);
+            System.out.println(USER_MESSAGE.COULD_NOT_OPEN_FILE);
         }
     }
 
@@ -113,7 +113,7 @@ public class TextEngine implements Sort {
             }
             System.out.println(USER_MESSAGE.TEXT_FILES_ARE_SORTED);
         }else {
-            System.err.println(USER_MESSAGE.NO_TEXT_FILE_IS_OPENED);
+            System.out.println(USER_MESSAGE.NO_TEXT_FILE_IS_OPENED);
         }
     }
 
@@ -140,7 +140,7 @@ public class TextEngine implements Sort {
             }
             // Start searching.
             if (filesContentsIsSorted || userDecision) {
-                System.out.println("!!Notera att sökningen är case-sensitive!!\nInmata gärna ordet du vill leta efter:");
+                System.out.println(USER_MESSAGE.SENSITIVE_CASE_SEARCH_NOTE);
                 // Word will be entered by user.
                 String wordToLookFor = new Scanner(System.in).nextLine();
                 // array that will hold the search result.
@@ -155,7 +155,7 @@ public class TextEngine implements Sort {
                 System.out.println(sortSearchResult(searchResult));
             }
         } else {
-            System.err.println(USER_MESSAGE.NO_TEXT_FILE_IS_OPENED);
+            System.out.println(USER_MESSAGE.NO_TEXT_FILE_IS_OPENED);
         }
     }
 
@@ -224,7 +224,7 @@ public class TextEngine implements Sort {
                 // store the name
                 fileName.replace(0, fileName.length(), new Scanner(System.in).nextLine());
                 if (fileName.length() == 0) {
-                    System.err.println(USER_MESSAGE.MUST_ENTER_A_NAME);
+                    System.out.println(USER_MESSAGE.MUST_ENTER_A_NAME);
                 }
             }
 
@@ -254,7 +254,7 @@ public class TextEngine implements Sort {
                 String msg = TextFile.save(saveContent.toString(),desktopPath + fileName.toString());
                 System.out.println(msg);
             } else {
-                System.err.println(USER_MESSAGE.FILE_HAS_NOT_BEEN_SAVED);
+                System.out.println(USER_MESSAGE.FILE_HAS_NOT_BEEN_SAVED);
             }
         }
     }
@@ -294,6 +294,8 @@ public class TextEngine implements Sort {
         private final static String RECOMMENDATION_TO_SORT_FILES_BEFORE_SEARCHING = "Jag rekomenderar att exekvera sökning på sorterad text för att få ett noggrannare resultat så sortera gärna texter först!!\nAnnars Jag kan fortfarande exekvera en sökning.\n Vill du fortsätta ändå? \n (y) ja, det vill jag. \n (Annars) Visa huvudmenyn.";
 
         private final static String WARNING_ABOUT_SIGNS = "!! Notera att vissa tecken kan räknas som en bokstav av ordet ifall det inte fanns ett mellanslag mellan dem.\n\t\tExemplvis: (. , : ! ? ) osv";
+
+        private final static String SENSITIVE_CASE_SEARCH_NOTE = "!!Notera att sökningen är case-sensitive!!\nInmata gärna ordet du vill leta efter:";
 
         private final static String NO_FILE_INCLUDE_SEARCH_KEYWORD = "\t\t!!Ingen textfil innehåller sökordet!!";
         /*Used inside saveFilesContents()*/
