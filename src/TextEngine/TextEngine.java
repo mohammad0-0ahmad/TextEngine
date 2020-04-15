@@ -1,4 +1,4 @@
-package textEngine;
+package TextEngine;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -297,7 +297,7 @@ public class TextEngine implements Sort {
 
         private final static String NO_FILE_INCLUDE_SEARCH_KEYWORD = "\t\t!!Ingen textfil innehåller sökordet!!";
         /*Used inside saveFilesContents()*/
-        private final static String FILE_WILL_BE_SAVED_ON_DESKTOP = "OBS! Filen kommer att lagras i skrivbordet ifall det lyckades.";
+        private final static String FILE_WILL_BE_SAVED_ON_DESKTOP = "OBS! Filen kommer att lagras på skrivbordet ifall det har lyckats.";
 
         private final static String ASKING_TO_ENTER_FILE_NAME_THAT_WILL_BE_SAVED = "Inmata ett namn på filen du vill spara!";
 

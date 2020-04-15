@@ -1,5 +1,5 @@
-package textEngine.Tests.UnitTests.Sort;
-import textEngine.Sort;
+package TextEngine.Tests.UnitTests.Sort;
+import TextEngine.Sort;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;

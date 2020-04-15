@@ -1,4 +1,4 @@
-package textEngine.Tests;
+package TextEngine.Tests;
 
 /**
  * A class that hold some variables that be used in System and Integration-tests

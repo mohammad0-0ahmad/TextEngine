@@ -1,6 +1,6 @@
-package textEngine.Tests.UnitTests.TextFile;
+package TextEngine.Tests.UnitTests.TextFile;
 
-import textEngine.TextFile;
+import TextEngine.TextFile;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 

@@ -1,11 +1,11 @@
-package textEngine.Tests.UnitTests.TextFile;
+package TextEngine.Tests.UnitTests.TextFile;
 
-import textEngine.TextFile;
+import TextEngine.TextFile;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Test class that tests {@link textEngine.TextFile#save(String, String)} method.
+ * Test class that tests {@link TextEngine.TextFile#save(String, String)} method.
  */
 public class Save {
     /**

@@ -1,4 +1,4 @@
-package textEngine;
+package TextEngine;
 
 /**
  * It includes all method that are such as a utility.

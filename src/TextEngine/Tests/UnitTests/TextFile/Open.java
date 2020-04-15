@@ -1,10 +1,10 @@
-package textEngine.Tests.UnitTests.TextFile;
+package TextEngine.Tests.UnitTests.TextFile;
 import org.junit.jupiter.api.*;
-import static textEngine.TextFile.open;
+import static TextEngine.TextFile.open;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 /**
- * Test class that tests {@link textEngine.TextFile#open(String)} method.
+ * Test class that tests {@link TextEngine.TextFile#open(String)} method.
  */
 class Open {
     /**

@@ -1,4 +1,4 @@
-package textEngine;
+package TextEngine;
 
 import java.io.*;
 import java.nio.file.Files;

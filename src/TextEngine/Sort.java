@@ -1,4 +1,4 @@
-package textEngine;
+package TextEngine;
 import java.util.ArrayList;
 
 /**
