@@ -12,3 +12,21 @@ MenuBar{
 }
 ScrollPane > .viewport  { -fx-background-color: #202040; }
 .content{-fx-text-fill:#fff;}
+
+.dialog-pane{
+  -fx-border-color:black;
+  -fx-border-width:2.0px;
+ }
+.progress-indicator{
+-fx-progress-color:#ff6363;
+-fx-background-color: #202040;
+}
+
+/**Costumization of DialogPane Header**/
+.dialog-pane:header .header-panel {
+  -fx-background-color: #202040;
+}
+.dialog-pane:header .header-panel .label{
+-fx-background-color: #202040;
+  -fx-text-fill:#ff6363;
+}

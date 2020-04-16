@@ -20,11 +20,8 @@ public class Main extends Application {
         return stage;
     }
 
-    public static void main(String[] args){
-        // Calling the method that will get the only instance of TextEngine "Singleton" and calling the method that starting console interface.
-        // Starting the application in console mode.
-        // TextEngine.getInstance().start();
 
+    public static void main(String[] args){
         // Starting the application in graphical user interface.
         launch(args);
     }

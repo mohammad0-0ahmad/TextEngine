@@ -6,10 +6,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
-import javafx.scene.paint.Paint;
-import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.File;
 import java.net.URL;
@@ -21,7 +20,7 @@ public class Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //
-        Label sort = new Label("Sörtera");
+        Label sort = new Label("Sortera");
         sort.setOnMouseClicked((e) -> sortContents());
         sort.getStyleClass().add("MenuItem");
         //
@@ -87,14 +86,16 @@ public class Controller implements Initializable {
     private void openFile() {
         //
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Öppna en textfil");
+        fileChooser.setTitle("\t\tÖppna en textfil");
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Texter", "*.txt"));
         //
         fileChooser.setInitialDirectory(new File(System.getProperty("user.home") + "//desktop"));
-
+        Alert progressIndicator = showProgressMessage("Öppnar...");
         //
         try {
             String filePath = fileChooser.showOpenDialog(stage).toString();
+            //
+            progressIndicator.show();
             Service<Void> inBackground = doInBackground(() -> {
                 String msg = "";
                 msg = textEngine.addFile(TextFile.open(filePath));
@@ -104,6 +105,7 @@ public class Controller implements Initializable {
             inBackground.start();
             //
             inBackground.setOnSucceeded(workerStateEvent -> {
+                (progressIndicator.getDialogPane().getScene().getWindow()).hide();
                 showMessage(inBackground.getMessage());
                 updateShownText(textEngine.getContents());
             });
@@ -127,8 +129,10 @@ public class Controller implements Initializable {
             //
             fileChooser.setInitialDirectory(new File(System.getProperty("user.home") + "//desktop"));
             try {
+                Alert progressIndicator = showProgressMessage("Sparar...");
                 //
                 String filePath = fileChooser.showSaveDialog(stage).toString();
+                progressIndicator.show();
                 Service<Void> inBackground = doInBackground(() -> {
                     String msg = "";
                     msg = TextFile.save(textEngine.getContentsToBeSaved(), filePath);
@@ -138,6 +142,7 @@ public class Controller implements Initializable {
                 inBackground.start();
                 //
                 inBackground.setOnSucceeded(workerStateEvent -> {
+                    (progressIndicator.getDialogPane().getScene().getWindow()).hide();
                     showMessage(inBackground.getMessage());
                 });
                 //
@@ -150,6 +155,8 @@ public class Controller implements Initializable {
      *
      */
     public void sortContents() {
+        Alert progressIndicator = showProgressMessage("Sorterar...");
+        progressIndicator.show();
         try {
             Service<Void> inBackground = doInBackground(() -> {
                 String msg = "";
@@ -160,6 +167,7 @@ public class Controller implements Initializable {
             inBackground.start();
             //
             inBackground.setOnSucceeded(workerStateEvent -> {
+                (progressIndicator.getDialogPane().getScene().getWindow()).hide();
                 showMessage(inBackground.getMessage());
                 if ((textEngine.getAmountOpenedFiles() > 0)) {
                     updateShownText(textEngine.getContents());
@@ -176,21 +184,34 @@ public class Controller implements Initializable {
         if ((textEngine.getAmountOpenedFiles() == 0)) {
             showMessage(TextEngine.USER_MESSAGE.NO_TEXT_FILE_IS_OPENED);
         } else {
-            try {
-                //todo show warning in case not all files is sorted.
+            boolean userDecision;
+            //
+            if (!textEngine.areAllFilesSorted()) {
+                userDecision = getUserDecision(TextEngine.USER_MESSAGE.RECOMMENDATION_TO_SORT_FILES_BEFORE_SEARCHING + "\n" + TextEngine.USER_MESSAGE.WARNING_ABOUT_SIGNS);
+            } else {
+                //
+                userDecision = true;
+            }
+            if (userDecision) {
+                try {
                     String wordToLookFor = getUserInput("Leta efter ett ord", TextEngine.USER_MESSAGE.SENSITIVE_CASE_SEARCH_NOTE);
-                Service<Void> inBackground = doInBackground(() -> {
-                    String msg = "";
-                    msg = "Resultatet av sökning på \" " + wordToLookFor + " \" ordet:\n" + textEngine.searchInFiles(wordToLookFor);
-                    return msg;
-                });
-                //
-                inBackground.start();
-                //
-                inBackground.setOnSucceeded(workerStateEvent -> {
-                    showMessage(inBackground.getMessage());
-                });
-            } catch (Exception ignored) {
+                    Alert progressIndicator = showProgressMessage("Letar efter \""+ wordToLookFor +"\" ...");
+                    progressIndicator.show();
+                    //
+                    Service<Void> inBackground = doInBackground(() -> {
+                        String msg = "";
+                        msg = "Resultatet av sökning på \" " + wordToLookFor + " \" ordet:\n" + textEngine.searchInFiles(wordToLookFor);
+                        return msg;
+                    });
+                    //
+                    inBackground.start();
+                    //
+                    inBackground.setOnSucceeded(workerStateEvent -> {
+                        (progressIndicator.getDialogPane().getScene().getWindow()).hide();
+                        showMessage(inBackground.getMessage());
+                    });
+                } catch (Exception ignored) {
+                }
             }
         }
     }
@@ -210,6 +231,40 @@ public class Controller implements Initializable {
         // Setting app icon on message dialog.
         ((Stage) dialogBox.getDialogPane().getScene().getWindow()).getIcons().add(GUI_VARIABLES.APP_ICON);
         dialogBox.show();
+    }
+
+    @FXML
+    private static Alert showProgressMessage(String msg) {
+        Alert dialogBox = new Alert(Alert.AlertType.NONE, "");
+        // set the text. "enabling text warping"
+        dialogBox.setHeaderText(msg);
+        dialogBox.initOwner(Main.getStage());
+        //
+        ProgressIndicator progressIndicator = new ProgressIndicator();
+        progressIndicator.setPrefHeight(300);
+        progressIndicator.setPrefWidth(300);
+        dialogBox.getDialogPane().setContent(progressIndicator);
+        // Setting app icon on message dialog.
+        ((Stage) dialogBox.getDialogPane().getScene().getWindow()).getIcons().add(GUI_VARIABLES.APP_ICON);
+        ((Stage) dialogBox.getDialogPane().getScene().getWindow()).initStyle(StageStyle.UNDECORATED);
+        dialogBox.getDialogPane().getChildren().remove(2);
+        return dialogBox;
+    }
+
+
+    /**/
+    private static boolean getUserDecision(String msg) {
+        Alert dialogBox = new Alert(Alert.AlertType.CONFIRMATION, "");
+        //
+        dialogBox.getDialogPane().setContent(new Label(msg));
+        // Setting app icon on message dialog.
+        ((Stage) dialogBox.getDialogPane().getScene().getWindow()).getIcons().add(GUI_VARIABLES.APP_ICON);
+        dialogBox.setGraphic(null);
+        dialogBox.setHeaderText(null);
+        if (dialogBox.showAndWait().get() == ButtonType.OK) {
+            return true;
+        }
+        return false;
     }
 
     /**
