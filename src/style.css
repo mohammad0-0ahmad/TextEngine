@@ -1,0 +1,14 @@
+MenuBar{
+-fx-background-color:#ffbd69;
+}
+.MenuItem{
+-fx-padding:4;
+}
+.menu > .label{
+    -fx-font-size:15;
+}
+.menu-item > .label{
+    -fx-font-size:15;
+}
+ScrollPane > .viewport  { -fx-background-color: #202040; }
+.content{-fx-text-fill:#fff;}

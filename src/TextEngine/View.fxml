@@ -4,16 +4,16 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TextEngine.Controller">
+<BorderPane styleClass="-fx-background-color:#202040;" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TextEngine.Controller">
     <top>
         <VBox prefHeight="0.0" prefWidth="600.0" BorderPane.alignment="CENTER">
             <children>
             <MenuBar>
               <menus>
-                <Menu mnemonicParsing="false" text="Fil">
+                <Menu fx:id="file" mnemonicParsing="false" text="Fil">
                   <items>
-                    <MenuItem fx:id="open" mnemonicParsing="false" onAction="#openFile" text="Öppna" />
-                      <MenuItem fx:id="save" mnemonicParsing="false" onAction="#saveContents" text="Spara" />
+                    <MenuItem fx:id="open" mnemonicParsing="false" onAction="#openFile" styleClass="MenuItem" text="Öppna" />
+                      <MenuItem fx:id="save" mnemonicParsing="false" onAction="#saveContents" styleClass="MenuItem" text="Spara" />
                   </items>
                 </Menu>
                 <Menu fx:id="sort" mnemonicParsing="false" onAction="#sortContents" text="" />
@@ -26,7 +26,10 @@
     <center>
         <ScrollPane focusTraversable="false" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <content>
-                <Text focusTraversable="false" fx:id="content" text="" />
+                <Label fx:id="content" focusTraversable="false" styleClass="content" text="" wrapText="true">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
             </content></ScrollPane>
     </center>
 </BorderPane>

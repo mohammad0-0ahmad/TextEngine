@@ -46,6 +46,11 @@ public class TextEngine implements Sort {
     /*>>>> Member methods <<<<*/
 
     /**
+     *
+     */
+    public int getAmountOpenedFiles(){return files.size();}
+
+    /**
      * It's a user interface in console that helps to select and execute a specific operation.
      */
     public void start() {
@@ -66,7 +71,7 @@ public class TextEngine implements Sort {
                     break;
                 //  To sort the content of all opened text files.
                 case "b":
-                    System.out.println(sortFilesContents());
+                    System.out.println(sortFilesContents()+USER_MESSAGE.PRINT_CONTENT_TO_SEE_THE_RESULT);
                     break;
                 // To call the method that make a search inside all opened text files.
                 case "c":
@@ -98,6 +103,18 @@ public class TextEngine implements Sort {
     }
 
     /**
+     *
+     */
+    public String addFile(TextFile file){
+        if (file != null) {
+            files.add(file);
+            return USER_MESSAGE.FILE_HAS_BEEN_OPENED_SUCCESSFULLY ;
+        } else {
+            return USER_MESSAGE.COULD_NOT_OPEN_FILE;
+        }
+    }
+
+    /**
      * If the file-arrays size is more than 0, loop through the size of the file. And if the file isn't already sorted, call the 'sortContent'-method
      */
     public String sortFilesContents() {
@@ -111,6 +128,18 @@ public class TextEngine implements Sort {
         }else {
             return(USER_MESSAGE.NO_TEXT_FILE_IS_OPENED);
         }
+    }
+
+    public boolean areAllFilesSorted(){
+        if (files.size() > 0) {
+            for (int i = 0; i < files.size();i++) {
+                if(!files.get(i).isSorted())
+                    return false;
+            }
+        }else {
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -139,20 +168,29 @@ public class TextEngine implements Sort {
                 System.out.println(USER_MESSAGE.SENSITIVE_CASE_SEARCH_NOTE);
                 // Word will be entered by user.
                 String wordToLookFor = new Scanner(System.in).nextLine();
-                // array that will hold the search result.
-                int[][] searchResult = new int[files.size()][2];
-                // Start searching file by file and save the result inside searchResult array.
-                for (int i = 0; i < files.size(); i++) {
-                    searchResult[i][0] = i;
-                    searchResult[i][1] = files.get(i).search(wordToLookFor);
-                }
                 System.out.println("\t\tResultatet av sökning på \" " + wordToLookFor + " \" ordet:");
                 // Calling the method that prints sorted result.
-                System.out.println(sortSearchResult(searchResult));
+                System.out.println(searchInFiles(wordToLookFor));
             }
         } else {
             System.out.println(USER_MESSAGE.NO_TEXT_FILE_IS_OPENED);
         }
+    }
+
+    /**
+     *
+     * @return
+     */
+    public String searchInFiles(String wordToLookFor){
+        // array that will hold the search result.
+        int[][] searchResult = new int[files.size()][2];
+        // Start searching file by file and save the result inside searchResult array.
+        for (int i = 0; i < files.size(); i++) {
+            searchResult[i][0] = i;
+            searchResult[i][1] = files.get(i).search(wordToLookFor);
+        }
+        // Calling the method that return sorted result.
+        return sortSearchResult(searchResult);
     }
 
     /**
@@ -244,29 +282,25 @@ public class TextEngine implements Sort {
             }
             // Calling the method that will save the file.
             if (readyToSave) {
-                StringBuffer saveContent = new StringBuffer();
-                files.forEach((file) -> saveContent.append(file.getContent() + "\n\n"));
                 // Storing a message will be shown for the user.
-                String msg = TextFile.save(saveContent.toString(),desktopPath + fileName.toString());
+                String msg = TextFile.save(getContentsToBeSaved(),desktopPath + fileName.toString());
                 System.out.println(msg);
             } else {
                 System.out.println(USER_MESSAGE.FILE_HAS_NOT_BEEN_SAVED);
             }
         }
     }
-    //
+
     /**
      *
      */
-    public String addFile(TextFile file){
-        if (file != null) {
-            files.add(file);
-            return ("Det gick bra med att öppna och addera filen.");
-        } else {
-            return ("!!Det gick tyvärr inte att öppna filen.!! \nSe till att filensformat är '.txt' och att filen finns redan.");
-        }
+    public String getContentsToBeSaved(){
+        StringBuffer saveContent = new StringBuffer();
+        files.forEach((file) -> saveContent.append(file.getContent() + "\n\n"));
+        return saveContent.toString();
     }
 
+    /*>>>>> Inner classes <<<<<*/
     /**
      * It includes some messages that will be shown for the user.
      */
@@ -296,7 +330,9 @@ public class TextEngine implements Sort {
         private final static String COULD_NOT_OPEN_FILE = "!!Det gick tyvärr inte att öppna filen.!! \nSe till att filens format är '.txt' och att filen redan finns.";
 
         /*Used inside sortFilesContents()*/
-        private final static String TEXT_FILES_ARE_SORTED = "Innehållet är sorterat.\nSkriv ut innehållet för att se resultatet.";
+        private final static String TEXT_FILES_ARE_SORTED = "Innehållet är sorterat.";
+
+        private final static String PRINT_CONTENT_TO_SEE_THE_RESULT = "\nSkriv ut innehållet för att se resultatet.";
 
         public final static String NO_TEXT_FILE_IS_OPENED = "Du har inte öppnat någon textfil ännu!!";
         /*Used inside searchInFiles()*/
@@ -304,13 +340,13 @@ public class TextEngine implements Sort {
 
         private final static String WARNING_ABOUT_SIGNS = "!! Notera att vissa tecken kan räknas som en bokstav av ordet ifall det inte fanns ett mellanslag mellan dem.\n\t\tExemplvis: (. , : ! ? ) osv";
 
-        private final static String SENSITIVE_CASE_SEARCH_NOTE = "!!Notera att sökningen är case-sensitive!!\nInmata gärna ordet du vill leta efter:";
+        public final static String SENSITIVE_CASE_SEARCH_NOTE = "!!Notera att sökningen är case-sensitive!!\nInmata gärna ordet du vill leta efter:";
 
         private final static String NO_FILE_INCLUDE_SEARCH_KEYWORD = "\t\t!!Ingen textfil innehåller sökordet!!";
         /*Used inside saveFilesContents()*/
         private final static String FILE_WILL_BE_SAVED_ON_DESKTOP = "OBS! Filen kommer att lagras på skrivbordet ifall det har lyckats.";
 
-        private final static String ASKING_TO_ENTER_FILE_NAME_THAT_WILL_BE_SAVED = "Inmata ett namn på filen du vill spara!";
+        public final static String ASKING_TO_ENTER_FILE_NAME_THAT_WILL_BE_SAVED = "Inmata ett namn på filen du vill spara!";
 
         private final static String MUST_ENTER_A_NAME = "Du måste ange ett namn!";
 
