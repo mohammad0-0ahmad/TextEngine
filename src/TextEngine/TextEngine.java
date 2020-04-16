@@ -291,7 +291,7 @@ public class TextEngine implements Sort {
 
         public final static String NO_TEXT_FILE_IS_OPENED = "Du har inte öppnat någon textfil ännu!!";
         /*Used inside searchInFiles()*/
-        private final static String RECOMMENDATION_TO_SORT_FILES_BEFORE_SEARCHING = "Jag rekomenderar att exekvera sökning på sorterad text för att få ett noggrannare resultat så sortera gärna texter först!!\nAnnars Jag kan fortfarande exekvera en sökning.\n Vill du fortsätta ändå? \n (y) ja, det vill jag. \n (Annars) Visa huvudmenyn.";
+        private final static String RECOMMENDATION_TO_SORT_FILES_BEFORE_SEARCHING = "Jag rekomenderar att exekvera sökning på sorterad text för att få ett noggrannare resultat.Så sortera gärna texter först!!\nAnnars Jag kan fortfarande exekvera en sökning.\n Vill du fortsätta ändå? \n (y) ja, det vill jag. \n (Annars) Visa huvudmenyn.";
 
         private final static String WARNING_ABOUT_SIGNS = "!! Notera att vissa tecken kan räknas som en bokstav av ordet ifall det inte fanns ett mellanslag mellan dem.\n\t\tExemplvis: (. , : ! ? ) osv";
 

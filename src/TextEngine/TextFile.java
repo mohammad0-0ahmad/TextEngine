@@ -175,6 +175,17 @@ public class TextFile implements Utilities,Sort,Search{
     public int search(String wordToLookFor) {
         if (this.sorted){
             return binary(wordToLookFor, this.content);
-        }else return linear(wordToLookFor, this.content);
+        }else{
+            // Removing possible break lines at end of words to improve linear searching.
+            ArrayList<String> tempContent = new ArrayList<>();
+            for (String word:this.content){
+                if (word.length()>0 &&((int)word.charAt(word.length()-1))==BREAK_LINE){
+                    tempContent.add(String.valueOf(new StringBuffer(word).deleteCharAt(word.length()-1)));
+                }else {
+                    tempContent.add(word);
+                }
+            }
+            return linear(wordToLookFor, tempContent);
+        }
     }
 }
